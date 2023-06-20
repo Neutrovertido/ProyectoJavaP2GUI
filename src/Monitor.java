@@ -27,8 +27,8 @@ public class Monitor extends Articulo{
     @Override
     public String getAtributos() {
         return super.getAtributos() +
-                "Tecnología de pantalla: " + getTecnologia() +
-                "Tamaño: " + getTamano() +
-                "Resolución: " + getResolucion();
+                "\nTecnología de pantalla: " + getTecnologia() +
+                "\nTamaño: " + getTamano() +
+                "\nResolución: " + getResolucion();
     }
 }

@@ -21,7 +21,7 @@ public class PC extends Articulo{
     @Override
     public String getAtributos() {
         return super.getAtributos() +
-                "Tipo: " + getTipoPC() +
-                "Especificaciones: " + getSpecs();
+                "\nTipo: " + getTipoPC() +
+                "\nEspecificaciones: " + getSpecs();
     }
 }

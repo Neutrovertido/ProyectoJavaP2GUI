@@ -5,7 +5,6 @@ public class Articulo {
     boolean estado;
     String marca;
 
-    // Constructor
     public Articulo(String codigo, double precio, int disponible, boolean estado, String marca) {
         this.codigo = codigo;
         this.precio = precio;
@@ -54,9 +53,9 @@ public class Articulo {
         }
 
         return "Código: " + getCodigo() +
-                "Precio: " + getPrecio() +
-                "Cantidad disponible: " + getDisponible() +
-                "Estado: " + estado +
-                "Marca: " + getMarca();
+                "\nPrecio: " + getPrecio() +
+                "\nCantidad disponible: " + getDisponible() +
+                "\nEstado: " + estado +
+                "\nMarca: " + getMarca();
     }
 }
