@@ -1,4 +1,4 @@
-public class PC extends Articulo{
+public class PC extends Articulo {
     String tipoPC;
     String specs;
 

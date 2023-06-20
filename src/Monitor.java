@@ -1,4 +1,4 @@
-public class Monitor extends Articulo{
+public class Monitor extends Articulo {
     String tecnologia;
     String tamano;
     String resolucion;
