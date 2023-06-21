@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Tienda {
@@ -172,6 +173,42 @@ public class Tienda {
             }
         }
         return null;
+    }
+
+    public void eliminarCliente(String id) {
+        for (Cliente i : getClientes()) {
+            if (id.equals(i.getId())) {
+                this.clientes.remove(i);
+            }
+        }
+        JOptionPane.showMessageDialog(null, "El cliente especificado no existe", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void eliminarPC(String codigo) {
+        for (PC i : getPCs()) {
+            if (codigo.equals(i.getCodigo())) {
+                this.pcs.remove(i);
+            }
+        }
+        JOptionPane.showMessageDialog(null, "La PC especificada no existe", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void eliminarMonitor(String codigo) {
+        for (Monitor i : getMonitores()) {
+            if (codigo.equals(i.getCodigo())) {
+                this.monitores.remove(i);
+            }
+        }
+        JOptionPane.showMessageDialog(null, "El monitor especificado no existe", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void eliminarPeriferico(String codigo) {
+        for (Periferico i : getPerifericos()) {
+            if (codigo.equals(i.getCodigo())) {
+                this.perifericos.remove(i);
+            }
+        }
+        JOptionPane.showMessageDialog(null, "El periférico especificado no existe", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     public String getAtributos() {
