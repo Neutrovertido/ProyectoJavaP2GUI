@@ -129,6 +129,51 @@ public class Tienda {
         }
     }
 
+    public Cliente buscarCliente(String id) {
+        for (Cliente i : getClientes()) {
+            if (id.equals(i.getId())) {
+                return i;
+            }
+        }
+        return null;
+    }
+
+    public PC buscarPC(String codigo) {
+        for (PC i : getPCs()) {
+            if (codigo.equals(i.getCodigo())) {
+                return i;
+            }
+        }
+        return null;
+    }
+
+    public Monitor buscarMonitor(String codigo) {
+        for (Monitor i : getMonitores()) {
+            if (codigo.equals(i.getCodigo())) {
+                return i;
+            }
+        }
+        return null;
+    }
+
+    public Periferico buscarPeriferico(String codigo) {
+        for (Periferico i : getPerifericos()) {
+            if (codigo.equals(i.getCodigo())) {
+                return i;
+            }
+        }
+        return null;
+    }
+
+    public Factura buscarFactura(String codigoF) {
+        for (Factura i : getFacturas()) {
+            if (codigoF.equals(i.getCodigoF())) {
+                return i;
+            }
+        }
+        return null;
+    }
+
     public String getAtributos() {
         String cl = "";
         String pc = "";
