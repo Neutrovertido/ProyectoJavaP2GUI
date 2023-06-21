@@ -99,6 +99,36 @@ public class Tienda {
         this.facturas.add(factura);
     }
 
+    public void imprimirClientes() {
+        for (Cliente i : getClientes()) {
+            System.out.println(i.getAtributos());
+        }
+    }
+
+    public void imprimirPCs() {
+        for (PC i : getPCs()) {
+            System.out.println(i.getAtributos());
+        }
+    }
+
+    public void imprimirMonitores() {
+        for (Monitor i : getMonitores()) {
+            System.out.println(i.getAtributos());
+        }
+    }
+
+    public void imprimirPerifericos() {
+        for (Periferico i : getPerifericos()) {
+            System.out.println(i.getAtributos());
+        }
+    }
+
+    public void imprimirFacturas() {
+        for (Factura i : getFacturas()) {
+            System.out.println(i.getAtributos());
+        }
+    }
+
     public String getAtributos() {
         String cl = "";
         String pc = "";
