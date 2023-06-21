@@ -79,6 +79,26 @@ public class Tienda {
     }
 
     // Methods
+    public void registrarCliente(Cliente cliente) {
+        this.clientes.add(cliente);
+    }
+
+    public void registrarPC(PC pc) {
+        this.pcs.add(pc);
+    }
+
+    public void registrarMonitor(Monitor monitor) {
+        this.monitores.add(monitor);
+    }
+
+    public void registrarPeriferico(Periferico periferico) {
+        this.perifericos.add(periferico);
+    }
+
+    public void registrarFactura(Factura factura) {
+        this.facturas.add(factura);
+    }
+
     public String getAtributos() {
         String cl = "";
         String pc = "";
