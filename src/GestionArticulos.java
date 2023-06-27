@@ -39,6 +39,9 @@ public class GestionArticulos extends JFrame{
     private JButton btnEliminar;
     private JButton btnMenuP;
     public JPanel pnlArticulos;
+    private JLabel lblTamano;
+    private JComboBox cmbTamano;
+    private Tienda t1 = new Tienda("tty8", "Tienda Hardware & Mas");
 
     public GestionArticulos() {
         btnLimpiar.addActionListener(new ActionListener() {
@@ -65,6 +68,12 @@ public class GestionArticulos extends JFrame{
                 visibilidad();
             }
         });
+        btnGuardar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                guardarArticulo();
+            }
+        });
     }
 
     public void guardarArticulo() {
@@ -74,7 +83,29 @@ public class GestionArticulos extends JFrame{
         boolean estado = rbtNuevo.isSelected(); // True = Nuevo / False = Usado
         String marca = txtMarca.getText();
 
+        if (rbtPC.isSelected()) {
+            String tipoPC = cmbTipoPC.getSelectedItem().toString();
+            String specs = txtSpecs.getText();
 
+            PC pc = new PC(codigo, precio, disponible, estado, marca, tipoPC, specs);
+            t1.registrarPC(pc);
+            t1.imprimirPCs();
+        } else if (rbtMonitor.isSelected()) {
+            String tecnologia = cmbTecnologia.getSelectedItem().toString();
+            String tamano = cmbTamano.getSelectedItem().toString();
+            String resolucion = cmbResolucion.getSelectedItem().toString();
+
+            Monitor mon = new Monitor(codigo, precio, disponible, estado, marca, tecnologia, tamano, resolucion);
+            t1.registrarMonitor(mon);
+            t1.imprimirMonitores();
+        } else if (rbtPeriferico.isSelected()) {
+            String tipoF = cmbTipoF.getSelectedItem().toString();
+            boolean inalambrico = rbtInalambrico.isSelected();
+
+            Periferico pef = new Periferico(codigo, precio, disponible, estado, marca, tipoF, inalambrico);
+            t1.registrarPeriferico(pef);
+            t1.imprimirPerifericos();
+        }
     }
 
     public void limpiar() {
