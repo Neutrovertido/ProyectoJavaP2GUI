@@ -1,6 +1,6 @@
 import javax.swing.*;
 
-public class GestionClientes {
+public class GestionClientes extends JFrame{
     private JLabel lblTitulo;
     private JTextField txtId;
     private JLabel lblId;
@@ -8,7 +8,7 @@ public class GestionClientes {
     private JTextField txtNombre;
     private JLabel lblRtn;
     private JTextField txtRtn;
-    private JPanel panClientes;
+    public JPanel pnlClientes;
     private JButton btnGuardar;
     private JPanel panBtn;
     private JButton btnBuscar;
