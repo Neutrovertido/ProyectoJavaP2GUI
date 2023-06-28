@@ -12,7 +12,7 @@ public class Main {
         /*GestionClientes c = new GestionClientes();
         c.setTitle("Clientes");
         c.setContentPane(c.pnlClientes);
-        c.setSize(800, 800);
+        c.setSize(600, 600);
         c.setVisible(true);
         c.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);*/
     }
