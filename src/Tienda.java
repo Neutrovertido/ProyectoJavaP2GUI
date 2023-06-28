@@ -19,6 +19,7 @@ public class Tienda {
         this.sitioWeb = sitioWeb;
         this.direccion = direccion;
         this.noTel = noTel;
+        this.clientes = new ArrayList<Cliente>();
         this.pcs = new ArrayList<PC>();
         this.monitores = new ArrayList<Monitor>();
         this.perifericos = new ArrayList<Periferico>();
@@ -32,6 +33,7 @@ public class Tienda {
         this.sitioWeb = "www.example.net";
         this.direccion = "Honduras";
         this.noTel = "9999-9999";
+        this.clientes = new ArrayList<Cliente>();
         this.pcs = new ArrayList<PC>();
         this.monitores = new ArrayList<Monitor>();
         this.perifericos = new ArrayList<Periferico>();
