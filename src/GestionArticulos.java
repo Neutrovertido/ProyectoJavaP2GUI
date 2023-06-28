@@ -130,6 +130,7 @@ public class GestionArticulos extends JFrame{
             txtSpecs.setEnabled(true);
             cmbTecnologia.setEnabled(false);
             cmbResolucion.setEnabled(false);
+            cmbTamano.setEnabled(false);
             cmbTipoF.setEnabled(false);
             rbtInalambrico.setEnabled(false);
             rbtAlambrico.setEnabled(false);
@@ -138,6 +139,7 @@ public class GestionArticulos extends JFrame{
             txtSpecs.setEnabled(false);
             cmbTecnologia.setEnabled(true);
             cmbResolucion.setEnabled(true);
+            cmbTamano.setEnabled(true);
             cmbTipoF.setEnabled(false);
             rbtInalambrico.setEnabled(false);
             rbtAlambrico.setEnabled(false);
@@ -146,6 +148,7 @@ public class GestionArticulos extends JFrame{
             txtSpecs.setEnabled(false);
             cmbTecnologia.setEnabled(false);
             cmbResolucion.setEnabled(false);
+            cmbTamano.setEnabled(false);
             cmbTipoF.setEnabled(true);
             rbtInalambrico.setEnabled(true);
             rbtAlambrico.setEnabled(true);
