@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GestionClientes extends JFrame{
     private JLabel lblTitulo;
@@ -17,4 +19,36 @@ public class GestionClientes extends JFrame{
     private JButton btnModificar;
     private JButton btnMenuP;
     private JTable tblClientes;
+    private Tienda t1 = new Tienda("tty8", "Tienda Hardware & Mas");
+
+    public GestionClientes() {
+        btnLimpiar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                limpiar();
+            }
+        });
+        btnGuardar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                guardarCliente();
+            }
+        });
+    }
+
+    public void limpiar() {
+        txtId.setText("");
+        txtNombre.setText("");
+        txtRtn.setText("");
+    }
+
+    public void guardarCliente() {
+        String id = txtId.getText();
+        String nombre = txtNombre.getText();
+        String rtn = txtRtn.getText();
+
+        Cliente cli = new Cliente(id, nombre, rtn);
+        t1.registrarCliente(cli);
+        t1.imprimirClientes();
+    }
 }
