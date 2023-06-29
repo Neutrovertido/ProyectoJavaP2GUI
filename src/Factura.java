@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.Calendar;
-public class Factura {
+public class Factura implements java.io.Serializable {
     String codigoF;
     String fecha;
     Cliente cliente;

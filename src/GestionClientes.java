@@ -2,6 +2,10 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 public class GestionClientes extends JFrame{
     private JLabel lblTitulo;
@@ -68,6 +72,28 @@ public class GestionClientes extends JFrame{
 
         this.tblClientes.setModel(model);
 
+        guardarFicheroC();
+
         t1.imprimirClientes();
+    }
+
+    public void guardarFicheroC() {
+        String name = "DatosClientes.dat";
+        try {
+            FileOutputStream ficheroC = new FileOutputStream(name);
+
+            try (ObjectOutputStream objetoC = new ObjectOutputStream(ficheroC)) {
+                for (Cliente i : t1.getClientes()) {
+                    objetoC.writeObject(i);
+                }
+                objetoC.close();
+            }
+        } catch(FileNotFoundException e) {
+            System.out.println("Fichero inexistente.");
+        } catch(IOException e) {
+            System.out.println(e.getMessage());
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

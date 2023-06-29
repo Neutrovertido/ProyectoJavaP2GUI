@@ -1,4 +1,4 @@
-public class Articulo {
+public class Articulo implements java.io.Serializable {
     String codigo;
     double precio;
     int disponible;

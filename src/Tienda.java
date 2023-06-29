@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.util.ArrayList;
 
-public class Tienda {
+public class Tienda implements java.io.Serializable {
     private String codigoT;
     private String nombreT;
     private String sitioWeb;

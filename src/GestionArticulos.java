@@ -2,6 +2,10 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 public class GestionArticulos extends JFrame{
     private JLabel lblTitulo;
@@ -127,6 +131,7 @@ public class GestionArticulos extends JFrame{
 
             PC pc = new PC(codigo, precio, disponible, estado, marca, tipoPC, specs);
             t1.registrarPC(pc);
+            guardarFicheroPC();
             t1.imprimirPCs();
         } else if (rbtMonitor.isSelected()) {
             String tecnologia = cmbTecnologia.getSelectedItem().toString();
@@ -135,6 +140,7 @@ public class GestionArticulos extends JFrame{
 
             Monitor mon = new Monitor(codigo, precio, disponible, estado, marca, tecnologia, tamano, resolucion);
             t1.registrarMonitor(mon);
+            guardarFicheroMon();
             t1.imprimirMonitores();
         } else if (rbtPeriferico.isSelected()) {
             String tipoF = cmbTipoF.getSelectedItem().toString();
@@ -142,11 +148,75 @@ public class GestionArticulos extends JFrame{
 
             Periferico pef = new Periferico(codigo, precio, disponible, estado, marca, tipoF, inalambrico);
             t1.registrarPeriferico(pef);
+            guardarFicheroPer();
             t1.imprimirPerifericos();
         }
         setElements();
     }
 
+    // Save to file methods
+    public void guardarFicheroPC() {
+        String name = "DatosPC.dat";
+        try {
+            FileOutputStream ficheroPC = new FileOutputStream(name);
+
+            try (ObjectOutputStream objetoPC = new ObjectOutputStream(ficheroPC)) {
+                for (PC i : t1.getPCs()) {
+                    objetoPC.writeObject(i);
+                }
+                objetoPC.close();
+            }
+        } catch(FileNotFoundException e) {
+            System.out.println("Fichero inexistente.");
+        } catch(IOException e) {
+            System.out.println(e.getMessage());
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void guardarFicheroMon() {
+        String name = "DatosMon.dat";
+        try {
+            FileOutputStream ficheroMon = new FileOutputStream(name);
+
+            try (ObjectOutputStream objetoMon = new ObjectOutputStream(ficheroMon)) {
+                for (Monitor i : t1.getMonitores()) {
+                    objetoMon.writeObject(i);
+                }
+                objetoMon.close();
+            }
+        } catch(FileNotFoundException e) {
+            System.out.println("Fichero inexistente.");
+        } catch(IOException e) {
+            System.out.println(e.getMessage());
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void guardarFicheroPer() {
+        String name = "DatosPer.dat";
+        try {
+            FileOutputStream ficheroPer = new FileOutputStream(name);
+
+            try (ObjectOutputStream objetoPer = new ObjectOutputStream(ficheroPer)) {
+                for (Periferico i : t1.getPerifericos()) {
+                    objetoPer.writeObject(i);
+                }
+                objetoPer.close();
+            }
+        } catch(FileNotFoundException e) {
+            System.out.println("Fichero inexistente.");
+        } catch(IOException e) {
+            System.out.println(e.getMessage());
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+// Misc methods
     public void limpiar() {
         txtCodigo.setText("");
         txtPrecio.setText("");
