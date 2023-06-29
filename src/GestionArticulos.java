@@ -76,12 +76,29 @@ public class GestionArticulos extends JFrame{
             }
         });
 
+        setElements();
+    }
+
+    public void setElements() {
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("Código");
         model.addColumn("Precio");
         model.addColumn("Cantidad Disponible");
         model.addColumn("Estado");
         model.addColumn("Marca");
+
+        if (rbtPC.isSelected()) {
+            model.addColumn("Tipo PC");
+            model.addColumn("Especificaciones");
+        } else if (rbtMonitor.isSelected()) {
+            model.addColumn("Tecnología");
+            model.addColumn("Resolución");
+            model.addColumn("Tamaño");
+        } else if (rbtPeriferico.isSelected()) {
+            model.addColumn("Periférico");
+            model.addColumn("Conexión");
+        }
+
         this.tblArticulos.setModel(model);
     }
 
@@ -162,5 +179,6 @@ public class GestionArticulos extends JFrame{
             rbtInalambrico.setEnabled(true);
             rbtAlambrico.setEnabled(true);
         }
+        setElements();
     }
 }
