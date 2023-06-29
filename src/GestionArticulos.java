@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -74,6 +75,14 @@ public class GestionArticulos extends JFrame{
                 guardarArticulo();
             }
         });
+
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Código");
+        model.addColumn("Precio");
+        model.addColumn("Cantidad Disponible");
+        model.addColumn("Estado");
+        model.addColumn("Marca");
+        this.tblArticulos.setModel(model);
     }
 
     public void guardarArticulo() {

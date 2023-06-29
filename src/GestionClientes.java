@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -34,6 +35,12 @@ public class GestionClientes extends JFrame{
                 guardarCliente();
             }
         });
+
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("ID");
+        model.addColumn("Nombre");
+        model.addColumn("RTN");
+        this.tblClientes.setModel(model);
     }
 
     public void limpiar() {
