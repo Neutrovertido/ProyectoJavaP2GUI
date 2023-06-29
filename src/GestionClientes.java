@@ -58,23 +58,27 @@ public class GestionClientes extends JFrame{
         String nombre = txtNombre.getText();
         String rtn = txtRtn.getText();
 
-        Cliente cli = new Cliente(id, nombre, rtn);
-        t1.registrarCliente(cli);
+        if (t1.buscarCliente(txtId.getText()) == null) {
+            Cliente cli = new Cliente(id, nombre, rtn);
+            t1.registrarCliente(cli);
 
-        DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("ID");
-        model.addColumn("Nombre");
-        model.addColumn("RTN");
+            DefaultTableModel model = new DefaultTableModel();
+            model.addColumn("ID");
+            model.addColumn("Nombre");
+            model.addColumn("RTN");
 
-        for (Cliente c : t1.getClientes()) {
-            model.addRow(new Object[]{c.id, c.nombre, c.rtn});
+            for (Cliente c : t1.getClientes()) {
+                model.addRow(new Object[]{c.id, c.nombre, c.rtn});
+            }
+
+            this.tblClientes.setModel(model);
+
+            guardarFicheroC();
+
+            t1.imprimirClientes();
+        } else {
+            JOptionPane.showMessageDialog(null, "El cliente con ese ID ya existe", "Cliente no ingresado", JOptionPane.ERROR_MESSAGE);
         }
-
-        this.tblClientes.setModel(model);
-
-        guardarFicheroC();
-
-        t1.imprimirClientes();
     }
 
     public void guardarFicheroC() {
