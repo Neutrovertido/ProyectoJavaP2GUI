@@ -90,13 +90,25 @@ public class GestionArticulos extends JFrame{
         if (rbtPC.isSelected()) {
             model.addColumn("Tipo PC");
             model.addColumn("Especificaciones");
+
+            for (PC i : t1.getPCs()) {
+                model.addRow(new Object[]{i.getCodigo(), i.getPrecio(), i.getDisponible(), i.getEstado(), i.getMarca(), i.getTipoPC(), i.getSpecs()});
+            }
         } else if (rbtMonitor.isSelected()) {
             model.addColumn("Tecnología");
             model.addColumn("Resolución");
             model.addColumn("Tamaño");
+
+            for (Monitor i : t1.getMonitores()) {
+                model.addRow(new Object[]{i.getCodigo(), i.getPrecio(), i.getDisponible(), i.getEstado(), i.getMarca(), i.getTecnologia(), i.getResolucion(), i.getTamano()});
+            }
         } else if (rbtPeriferico.isSelected()) {
             model.addColumn("Periférico");
             model.addColumn("Conexión");
+
+            for (Periferico i : t1.getPerifericos()) {
+                model.addRow(new Object[]{i.getCodigo(), i.getPrecio(), i.getDisponible(), i.getEstado(), i.getMarca(), i.getTipoF(), i.getInalambrico()});
+            }
         }
 
         this.tblArticulos.setModel(model);
@@ -132,6 +144,7 @@ public class GestionArticulos extends JFrame{
             t1.registrarPeriferico(pef);
             t1.imprimirPerifericos();
         }
+        setElements();
     }
 
     public void limpiar() {

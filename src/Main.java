@@ -2,6 +2,13 @@ import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
+
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+
         /*GestionArticulos g = new GestionArticulos();
         g.setTitle("Artículos");
         g.setContentPane(g.pnlArticulos);

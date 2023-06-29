@@ -56,6 +56,18 @@ public class GestionClientes extends JFrame{
 
         Cliente cli = new Cliente(id, nombre, rtn);
         t1.registrarCliente(cli);
+
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("ID");
+        model.addColumn("Nombre");
+        model.addColumn("RTN");
+
+        for (Cliente c : t1.getClientes()) {
+            model.addRow(new Object[]{c.id, c.nombre, c.rtn});
+        }
+
+        this.tblClientes.setModel(model);
+
         t1.imprimirClientes();
     }
 }
