@@ -2,10 +2,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 
 public class GestionClientes extends JFrame{
     private JLabel lblTitulo;
@@ -45,6 +42,8 @@ public class GestionClientes extends JFrame{
         model.addColumn("Nombre");
         model.addColumn("RTN");
         this.tblClientes.setModel(model);
+
+        cargar();
     }
 
     public void limpiar() {
@@ -99,5 +98,40 @@ public class GestionClientes extends JFrame{
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public void cargarFicheroC() {
+        String name = "DatosClientes.dat";
+        try {
+            FileInputStream ficheroC = new FileInputStream(name);
+            try (ObjectInputStream objetoC = new ObjectInputStream(ficheroC)) {
+                Cliente c = (Cliente) objetoC.readObject();
+                while (c != null) {
+                    t1.registrarCliente(c);
+                    c = (Cliente) objetoC.readObject();
+                }
+                objetoC.close();
+            }
+        } catch(FileNotFoundException e) {
+            System.out.println("Fichero inexistente.");
+        } catch(IOException e) {
+            System.out.println(e.getMessage());
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void cargar() {
+        cargarFicheroC();
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("ID");
+        model.addColumn("Nombre");
+        model.addColumn("RTN");
+
+        for (Cliente c : t1.getClientes()) {
+            model.addRow(new Object[]{c.id, c.nombre, c.rtn});
+        }
+
+        this.tblClientes.setModel(model);
     }
 }
