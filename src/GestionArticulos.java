@@ -125,44 +125,35 @@ public class GestionArticulos extends JFrame{
         boolean estado = rbtNuevo.isSelected(); // True = Nuevo / False = Usado
         String marca = txtMarca.getText();
 
-        if (rbtPC.isSelected()) {
-            String tipoPC = cmbTipoPC.getSelectedItem().toString();
-            String specs = txtSpecs.getText();
+        if (t1.buscarPC(codigo) == null && t1.buscarMonitor(codigo) == null && t1.buscarPeriferico(codigo) == null) {
+            if (rbtPC.isSelected()) {
+                String tipoPC = cmbTipoPC.getSelectedItem().toString();
+                String specs = txtSpecs.getText();
 
-            if (t1.buscarPC(codigo) == null) {
                 PC pc = new PC(codigo, precio, disponible, estado, marca, tipoPC, specs);
                 t1.registrarPC(pc);
                 guardarFicheroPC();
                 t1.imprimirPCs();
-            } else {
-                JOptionPane.showMessageDialog(null, "La PC con ese código ya existe", "PC no ingresada", JOptionPane.ERROR_MESSAGE);
-            }
-        } else if (rbtMonitor.isSelected()) {
-            String tecnologia = cmbTecnologia.getSelectedItem().toString();
-            String tamano = cmbTamano.getSelectedItem().toString();
-            String resolucion = cmbResolucion.getSelectedItem().toString();
+            } else if (rbtMonitor.isSelected()) {
+                String tecnologia = cmbTecnologia.getSelectedItem().toString();
+                String tamano = cmbTamano.getSelectedItem().toString();
+                String resolucion = cmbResolucion.getSelectedItem().toString();
 
-
-            if (t1.buscarMonitor(codigo) == null) {
                 Monitor mon = new Monitor(codigo, precio, disponible, estado, marca, tecnologia, tamano, resolucion);
                 t1.registrarMonitor(mon);
                 guardarFicheroMon();
                 t1.imprimirMonitores();
-            } else {
-                JOptionPane.showMessageDialog(null, "El monitor con ese código ya existe", "Monitor no ingresado", JOptionPane.ERROR_MESSAGE);
-            }
-        } else if (rbtPeriferico.isSelected()) {
-            String tipoF = cmbTipoF.getSelectedItem().toString();
-            boolean inalambrico = rbtInalambrico.isSelected();
+            } else if (rbtPeriferico.isSelected()) {
+                String tipoF = cmbTipoF.getSelectedItem().toString();
+                boolean inalambrico = rbtInalambrico.isSelected();
 
-            if (t1.buscarPeriferico(codigo) == null) {
                 Periferico pef = new Periferico(codigo, precio, disponible, estado, marca, tipoF, inalambrico);
                 t1.registrarPeriferico(pef);
                 guardarFicheroPer();
                 t1.imprimirPerifericos();
-            } else {
-                JOptionPane.showMessageDialog(null, "El periférico con ese ID ya existe", "Periférico no ingresado", JOptionPane.ERROR_MESSAGE);
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "El artículo con ese código ya existe", "No ingresado", JOptionPane.ERROR_MESSAGE);
         }
         setElements();
     }
