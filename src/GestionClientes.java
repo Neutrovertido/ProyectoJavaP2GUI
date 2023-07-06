@@ -37,6 +37,13 @@ public class GestionClientes extends JFrame{
             }
         });
 
+        btnBuscar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                buscar();
+            }
+        });
+
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("ID");
         model.addColumn("Nombre");
@@ -133,5 +140,16 @@ public class GestionClientes extends JFrame{
         }
 
         this.tblClientes.setModel(model);
+    }
+
+    public void buscar() {
+        Cliente c = t1.buscarCliente(txtId.getText());
+
+        if (c != null) {
+           txtNombre.setText(c.getNombre());
+           txtRtn.setText(c.getRtn());
+        } else {
+            JOptionPane.showMessageDialog(null, "El cliente con esa ID no existe", "Cliente no encontrado", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

@@ -2,6 +2,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
 import java.io.*;
 
 public class GestionArticulos extends JFrame{
@@ -46,6 +47,11 @@ public class GestionArticulos extends JFrame{
     private Tienda t1 = new Tienda("tty8", "Tienda Hardware & Mas");
 
     public GestionArticulos() {
+        cargarFicheroPC();
+        cargarFicheroMon();
+        cargarFicheroPer();
+        setElements();
+
         btnLimpiar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -76,11 +82,14 @@ public class GestionArticulos extends JFrame{
                 guardarArticulo();
             }
         });
-
-        cargarFicheroPC();
-        cargarFicheroMon();
-        cargarFicheroPer();
-        setElements();
+        btnBuscar.addComponentListener(new ComponentAdapter() {
+        });
+        btnBuscar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                buscar();
+            }
+        });
     }
 
     public void setElements() {
@@ -284,6 +293,69 @@ public class GestionArticulos extends JFrame{
     }
 
     // Misc methods
+    public void buscar() {
+        String cod = txtCodigo.getText();
+        if (t1.buscarPC(cod) != null) {
+            PC pc = t1.buscarPC(cod);
+
+            txtPrecio.setText(String.valueOf(pc.getPrecio()));
+            spnDisponible.setValue(pc.getDisponible());
+            if (pc.getEstado()) {
+                rbtNuevo.setSelected(true);
+            } else {
+                rbtUsado.setSelected(true);
+            }
+            txtMarca.setText(pc.getMarca());
+
+            rbtPC.setSelected(true);
+            cmbTipoPC.setSelectedItem(pc.getTipoPC());
+            txtSpecs.setText(pc.getSpecs());
+
+            visibilidad();
+        } else if (t1.buscarMonitor(cod) != null) {
+            Monitor mon = t1.buscarMonitor(cod);
+
+            txtPrecio.setText(String.valueOf(mon.getPrecio()));
+            spnDisponible.setValue(mon.getDisponible());
+            if (mon.getEstado()) {
+                rbtNuevo.setSelected(true);
+            } else {
+                rbtUsado.setSelected(true);
+            }
+            txtMarca.setText(mon.getMarca());
+
+            rbtMonitor.setSelected(true);
+            cmbTecnologia.setSelectedItem(mon.getTecnologia());
+            cmbResolucion.setSelectedItem(mon.getResolucion());
+            cmbTamano.setSelectedItem(mon.getTamano());
+
+            visibilidad();
+        } else if (t1.buscarPeriferico(cod) != null) {
+            Periferico per = t1.buscarPeriferico(cod);
+
+            txtPrecio.setText(String.valueOf(per.getPrecio()));
+            spnDisponible.setValue(per.getDisponible());
+            if (per.getEstado()) {
+                rbtNuevo.setSelected(true);
+            } else {
+                rbtUsado.setSelected(true);
+            }
+            txtMarca.setText(per.getMarca());
+
+            rbtPeriferico.setSelected(true);
+            cmbTipoF.setSelectedItem(per.getTipoF());
+            if (per.getInalambrico()) {
+                rbtInalambrico.setSelected(true);
+            } else {
+                rbtAlambrico.setSelected(true);
+            }
+
+            visibilidad();
+        } else {
+            JOptionPane.showMessageDialog(null, "El artículo con ese código no existe", "Artículo no encontrado", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     public void limpiar() {
         txtCodigo.setText("");
         txtPrecio.setText("");
