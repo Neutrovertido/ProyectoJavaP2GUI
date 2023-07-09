@@ -2,6 +2,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.*;
 
 public class GestionClientes extends JFrame{
@@ -24,6 +26,13 @@ public class GestionClientes extends JFrame{
     private Tienda t1 = new Tienda("tty8", "Tienda Hardware & Mas");
 
     public GestionClientes() {
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("ID");
+        model.addColumn("Nombre");
+        model.addColumn("RTN");
+        this.tblClientes.setModel(model);
+
+        cargar();
         btnLimpiar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -44,13 +53,13 @@ public class GestionClientes extends JFrame{
             }
         });
 
-        DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("ID");
-        model.addColumn("Nombre");
-        model.addColumn("RTN");
-        this.tblClientes.setModel(model);
-
-        cargar();
+        tblClientes.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                tableClick();
+            }
+        });
     }
 
     public void limpiar() {
@@ -151,5 +160,15 @@ public class GestionClientes extends JFrame{
         } else {
             JOptionPane.showMessageDialog(null, "El cliente con esa ID no existe", "Cliente no encontrado", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    public void tableClick() {
+        int x = tblClientes.getSelectedRow();
+        String v = tblClientes.getValueAt(x, 0).toString();
+
+        Cliente c = t1.buscarCliente(v);
+        txtId.setText(c.getId());
+        txtNombre.setText(c.getNombre());
+        txtRtn.setText(c.getRtn());
     }
 }

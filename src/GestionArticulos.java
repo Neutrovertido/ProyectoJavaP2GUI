@@ -1,8 +1,6 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
+import java.awt.event.*;
 import java.io.*;
 
 public class GestionArticulos extends JFrame{
@@ -88,6 +86,13 @@ public class GestionArticulos extends JFrame{
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 buscar();
+            }
+        });
+        tblArticulos.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                clickTable();
             }
         });
     }
@@ -353,6 +358,66 @@ public class GestionArticulos extends JFrame{
             visibilidad();
         } else {
             JOptionPane.showMessageDialog(null, "El artículo con ese código no existe", "Artículo no encontrado", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void clickTable() {
+        int x = tblArticulos.getSelectedRow();
+        String v = tblArticulos.getValueAt(x, 0).toString();
+
+        if (rbtPC.isSelected()) {
+            PC pc = t1.buscarPC(v);
+
+            txtCodigo.setText(pc.getCodigo());
+            txtPrecio.setText(String.valueOf(pc.getPrecio()));
+            spnDisponible.setValue(pc.getDisponible());
+            if (pc.getEstado()) {
+                rbtNuevo.setSelected(true);
+            } else {
+                rbtUsado.setSelected(true);
+            }
+            txtMarca.setText(pc.getMarca());
+
+            rbtPC.setSelected(true);
+            cmbTipoPC.setSelectedItem(pc.getTipoPC());
+            txtSpecs.setText(pc.getSpecs());
+        } else if (rbtMonitor.isSelected()) {
+            Monitor mon = t1.buscarMonitor(v);
+
+            txtCodigo.setText(mon.getCodigo());
+            txtPrecio.setText(String.valueOf(mon.getPrecio()));
+            spnDisponible.setValue(mon.getDisponible());
+            if (mon.getEstado()) {
+                rbtNuevo.setSelected(true);
+            } else {
+                rbtUsado.setSelected(true);
+            }
+            txtMarca.setText(mon.getMarca());
+
+            rbtMonitor.setSelected(true);
+            cmbTecnologia.setSelectedItem(mon.getTecnologia());
+            cmbResolucion.setSelectedItem(mon.getResolucion());
+            cmbTamano.setSelectedItem(mon.getTamano());
+        } else if (rbtPeriferico.isSelected()) {
+            Periferico per = t1.buscarPeriferico(v);
+
+            txtCodigo.setText(per.getCodigo());
+            txtPrecio.setText(String.valueOf(per.getPrecio()));
+            spnDisponible.setValue(per.getDisponible());
+            if (per.getEstado()) {
+                rbtNuevo.setSelected(true);
+            } else {
+                rbtUsado.setSelected(true);
+            }
+            txtMarca.setText(per.getMarca());
+
+            rbtPeriferico.setSelected(true);
+            cmbTipoF.setSelectedItem(per.getTipoF());
+            if (per.getInalambrico()) {
+                rbtInalambrico.setSelected(true);
+            } else {
+                rbtAlambrico.setSelected(true);
+            }
         }
     }
 
