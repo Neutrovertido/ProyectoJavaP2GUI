@@ -186,30 +186,27 @@ public class Tienda implements java.io.Serializable {
     }
 
     public void eliminarPC(String codigo) {
-        for (PC i : getPCs()) {
-            if (codigo.equals(i.getCodigo())) {
+        for (int i = 0; i < getPCs().size(); i++) {
+            if (codigo.equals(getPCs().get(i).getCodigo())) {
                 this.pcs.remove(i);
             }
         }
-        JOptionPane.showMessageDialog(null, "La PC especificada no existe", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     public void eliminarMonitor(String codigo) {
-        for (Monitor i : getMonitores()) {
-            if (codigo.equals(i.getCodigo())) {
+        for (int i = 0; i < getMonitores().size(); i++) {
+            if (codigo.equals(getMonitores().get(i).getCodigo())) {
                 this.monitores.remove(i);
             }
         }
-        JOptionPane.showMessageDialog(null, "El monitor especificado no existe", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     public void eliminarPeriferico(String codigo) {
-        for (Periferico i : getPerifericos()) {
-            if (codigo.equals(i.getCodigo())) {
+        for (int i = 0; i < getPerifericos().size(); i++) {
+            if (codigo.equals(getPerifericos().get(i).getCodigo())) {
                 this.perifericos.remove(i);
             }
         }
-        JOptionPane.showMessageDialog(null, "El periférico especificado no existe", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     public String getAtributos() {

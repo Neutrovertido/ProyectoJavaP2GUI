@@ -97,6 +97,12 @@ public class GestionArticulos extends JFrame{
                 clickTable();
             }
         });
+        btnEliminar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                eliminar();
+            }
+        });
     }
 
     public void setElements() {
@@ -437,6 +443,35 @@ public class GestionArticulos extends JFrame{
         rbtInalambrico.setSelected(false);
         txtSpecs.setText("");
         visibilidad();
+    }
+
+    public void eliminar() {
+        String cod = txtCodigo.getText();
+        if (rbtPC.isSelected()) {
+            if (t1.buscarPC(cod) != null) {
+                t1.eliminarPC(cod);
+                guardarFicheroPC();
+                setElements();
+            } else {
+                JOptionPane.showMessageDialog(null, "La PC especificada no existe", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else if (rbtMonitor.isSelected()) {
+            if (t1.buscarMonitor(cod) != null) {
+                t1.eliminarMonitor(cod);
+                guardarFicheroMon();
+                setElements();
+            } else {
+                JOptionPane.showMessageDialog(null, "El monitor especificado no existe", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else if (rbtPeriferico.isSelected()) {
+            if (t1.buscarPeriferico(cod) != null) {
+                t1.eliminarPeriferico(cod);
+                guardarFicheroPer();
+                setElements();
+            } else {
+                JOptionPane.showMessageDialog(null, "El periférico especificado no existe", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     public void visibilidad() {
