@@ -69,6 +69,12 @@ public class GestionClientes extends JFrame{
                 eliminar();
             }
         });
+        btnModificar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                modificar();
+            }
+        });
     }
 
     public void limpiar() {
@@ -179,6 +185,17 @@ public class GestionClientes extends JFrame{
             JOptionPane.showMessageDialog(null, "El cliente especificado no existe", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
+    }
+
+    public void modificar() {
+        String id = txtId.getText();
+        if (t1.buscarCliente(id) != null) {
+            eliminar();
+            guardarCliente();
+            cargar();
+        } else {
+            JOptionPane.showMessageDialog(null, "El cliente especificado no existe", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void tableClick() {
