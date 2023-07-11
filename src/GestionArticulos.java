@@ -42,9 +42,11 @@ public class GestionArticulos extends JFrame{
     public JPanel pnlArticulos;
     private JLabel lblTamano;
     private JComboBox cmbTamano;
-    private Tienda t1 = new Tienda("tty8", "Tienda Hardware & Mas");
+    private Tienda t1;
 
-    public GestionArticulos() {
+    public GestionArticulos(Tienda t) {
+        t1 = t;
+
         cargarFicheroPC();
         cargarFicheroMon();
         cargarFicheroPer();

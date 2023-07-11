@@ -23,9 +23,11 @@ public class GestionClientes extends JFrame{
     private JButton btnModificar;
     private JButton btnMenuP;
     private JTable tblClientes;
-    private Tienda t1 = new Tienda("tty8", "Tienda Hardware & Mas");
+    private Tienda t1;
 
-    public GestionClientes() {
+    public GestionClientes(Tienda t) {
+        t1 = t;
+
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("ID");
         model.addColumn("Nombre");
