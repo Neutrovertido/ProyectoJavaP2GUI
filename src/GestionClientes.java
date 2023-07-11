@@ -34,6 +34,7 @@ public class GestionClientes extends JFrame{
         model.addColumn("RTN");
         this.tblClientes.setModel(model);
 
+        cargarFicheroC();
         cargar();
         btnLimpiar.addActionListener(new ActionListener() {
             @Override
@@ -60,6 +61,12 @@ public class GestionClientes extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 tableClick();
+            }
+        });
+        btnEliminar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                eliminar();
             }
         });
     }
@@ -140,7 +147,6 @@ public class GestionClientes extends JFrame{
     }
 
     public void cargar() {
-        cargarFicheroC();
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("ID");
         model.addColumn("Nombre");
@@ -162,6 +168,17 @@ public class GestionClientes extends JFrame{
         } else {
             JOptionPane.showMessageDialog(null, "El cliente con esa ID no existe", "Cliente no encontrado", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    public void eliminar() {
+        if (t1.buscarCliente(txtId.getText()) != null) {
+            t1.eliminarCliente(txtId.getText());
+            guardarFicheroC();
+            cargar();
+        } else {
+            JOptionPane.showMessageDialog(null, "El cliente especificado no existe", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
     }
 
     public void tableClick() {

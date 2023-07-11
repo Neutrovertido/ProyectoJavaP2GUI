@@ -178,12 +178,11 @@ public class Tienda implements java.io.Serializable {
     }
 
     public void eliminarCliente(String id) {
-        for (Cliente i : getClientes()) {
-            if (id.equals(i.getId())) {
+        for (int i = 0; i < getClientes().size(); i++) {
+            if (id.equals(getClientes().get(i).getId())) {
                 this.clientes.remove(i);
             }
         }
-        JOptionPane.showMessageDialog(null, "El cliente especificado no existe", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     public void eliminarPC(String codigo) {
