@@ -174,7 +174,7 @@ public class GestionArticulos extends JFrame{
                     t1.imprimirMonitores();
                 } else if (rbtPeriferico.isSelected()) {
                     String tipoF = cmbTipoF.getSelectedItem().toString();
-                    boolean inalambrico = rbtInalambrico.isSelected();
+                    boolean inalambrico = rbtInalambrico.isSelected(); // True = Inalámbrico / False = Alámbrico
 
                     Periferico pef = new Periferico(codigo, precio, disponible, estado, marca, tipoF, inalambrico);
                     t1.registrarPeriferico(pef);
