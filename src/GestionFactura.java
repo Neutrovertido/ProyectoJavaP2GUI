@@ -1,5 +1,7 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.FileInputStream;
@@ -36,12 +38,15 @@ public class GestionFactura extends JFrame {
     private JTextField txtFecha;
     private Tienda t1;
 public GestionFactura(Tienda t) {
-    this.t1 = t;
+    t1 = t;
 
     cargarFicheroC();
     cargarFicheroPC();
     cargarFicheroMon();
     cargarFicheroPer();
+
+    txtNumero.setText(Integer.toString(t1.getFacturas().size() + 1));
+    txtFecha.setText(Factura.fechaActual());
 
     DefaultTableModel model = new DefaultTableModel();
     model.addColumn("Código");
@@ -64,6 +69,12 @@ public GestionFactura(Tienda t) {
         public void keyTyped(KeyEvent e) {
             super.keyTyped(e);
             updateArticulo();
+        }
+    });
+    btnLimpiar.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            limpiar();
         }
     });
 }
@@ -175,5 +186,24 @@ public GestionFactura(Tienda t) {
         } catch (Exception e) {
             txaArticulo.setText("Artículo:");
         }
+    }
+
+    public void limpiar() {
+        txtNumero.setText("");
+        txtFecha.setText("");
+        txtCliente.setText("");
+        txtCodigo.setText("");
+        spnCantidad.setValue(0);
+        txtSubtotal.setText("");
+        txtDescuento.setText("");
+        txtTotal.setText("");
+        updateArticulo();
+        updateCliente();
+    }
+
+    public void addArticulo() {
+        txtCodigo.setText("");
+        spnCantidad.setValue(0);
+        updateArticulo();
     }
 }
