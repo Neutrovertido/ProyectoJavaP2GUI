@@ -11,13 +11,6 @@ public class Main {
 
         Tienda t1 = new Tienda("tty8", "Tienda Hardware & Mas");
 
-        /*GestionArticulos g = new GestionArticulos();
-        g.setTitle("Artículos");
-        g.setContentPane(g.pnlArticulos);
-        g.setSize(1000, 600);
-        g.setVisible(true);
-        g.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);*/
-
         JFrame ga = new JFrame("Artículos");
         ga.setContentPane(new GestionArticulos(t1).pnlArticulos);
         ga.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -32,6 +25,14 @@ public class Main {
         gc.setResizable(true);
         gc.setVisible(true);
 
+        JFrame gf = new JFrame("Factura");
+        gf.setContentPane(new GestionFactura(t1).pnlFactura);
+        gf.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        gf.pack();
+        gf.setResizable(true);
+        gf.setVisible(true);
+
+        // Legacy
         /*GestionClientes c = new GestionClientes();
         c.setTitle("Clientes");
         c.setContentPane(c.pnlClientes);
