@@ -148,42 +148,46 @@ public class GestionArticulos extends JFrame{
 
     public void guardarArticulo() {
         String codigo = txtCodigo.getText();
-        double precio = Double.parseDouble(txtPrecio.getText());
-        int disponible = (int) spnDisponible.getValue();
-        boolean estado = rbtNuevo.isSelected(); // True = Nuevo / False = Usado
-        String marca = txtMarca.getText();
+        if (codigo.length() != 0) {
+            double precio = Double.parseDouble(txtPrecio.getText());
+            int disponible = (int) spnDisponible.getValue();
+            boolean estado = rbtNuevo.isSelected(); // True = Nuevo / False = Usado
+            String marca = txtMarca.getText();
 
-        if (t1.buscarPC(codigo) == null && t1.buscarMonitor(codigo) == null && t1.buscarPeriferico(codigo) == null) {
-            if (rbtPC.isSelected()) {
-                String tipoPC = cmbTipoPC.getSelectedItem().toString();
-                String specs = txtSpecs.getText();
+            if (t1.buscarPC(codigo) == null && t1.buscarMonitor(codigo) == null && t1.buscarPeriferico(codigo) == null) {
+                if (rbtPC.isSelected()) {
+                    String tipoPC = cmbTipoPC.getSelectedItem().toString();
+                    String specs = txtSpecs.getText();
 
-                PC pc = new PC(codigo, precio, disponible, estado, marca, tipoPC, specs);
-                t1.registrarPC(pc);
-                guardarFicheroPC();
-                t1.imprimirPCs();
-            } else if (rbtMonitor.isSelected()) {
-                String tecnologia = cmbTecnologia.getSelectedItem().toString();
-                String tamano = cmbTamano.getSelectedItem().toString();
-                String resolucion = cmbResolucion.getSelectedItem().toString();
+                    PC pc = new PC(codigo, precio, disponible, estado, marca, tipoPC, specs);
+                    t1.registrarPC(pc);
+                    guardarFicheroPC();
+                    t1.imprimirPCs();
+                } else if (rbtMonitor.isSelected()) {
+                    String tecnologia = cmbTecnologia.getSelectedItem().toString();
+                    String tamano = cmbTamano.getSelectedItem().toString();
+                    String resolucion = cmbResolucion.getSelectedItem().toString();
 
-                Monitor mon = new Monitor(codigo, precio, disponible, estado, marca, tecnologia, tamano, resolucion);
-                t1.registrarMonitor(mon);
-                guardarFicheroMon();
-                t1.imprimirMonitores();
-            } else if (rbtPeriferico.isSelected()) {
-                String tipoF = cmbTipoF.getSelectedItem().toString();
-                boolean inalambrico = rbtInalambrico.isSelected();
+                    Monitor mon = new Monitor(codigo, precio, disponible, estado, marca, tecnologia, tamano, resolucion);
+                    t1.registrarMonitor(mon);
+                    guardarFicheroMon();
+                    t1.imprimirMonitores();
+                } else if (rbtPeriferico.isSelected()) {
+                    String tipoF = cmbTipoF.getSelectedItem().toString();
+                    boolean inalambrico = rbtInalambrico.isSelected();
 
-                Periferico pef = new Periferico(codigo, precio, disponible, estado, marca, tipoF, inalambrico);
-                t1.registrarPeriferico(pef);
-                guardarFicheroPer();
-                t1.imprimirPerifericos();
+                    Periferico pef = new Periferico(codigo, precio, disponible, estado, marca, tipoF, inalambrico);
+                    t1.registrarPeriferico(pef);
+                    guardarFicheroPer();
+                    t1.imprimirPerifericos();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "El artículo con ese código ya existe", "No ingresado", JOptionPane.ERROR_MESSAGE);
             }
+            setElements();
         } else {
-            JOptionPane.showMessageDialog(null, "El artículo con ese código ya existe", "No ingresado", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El artículo no puede tener un código vacío", "No ingresado", JOptionPane.ERROR_MESSAGE);
         }
-        setElements();
     }
 
     // Save to file methods
