@@ -28,7 +28,7 @@ public class Main {
         JFrame gf = new JFrame("Factura");
         gf.setContentPane(new GestionFactura(t1).pnlFactura);
         gf.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        gf.pack();
+        gf.setSize(800, 800);
         gf.setResizable(true);
         gf.setVisible(true);
 

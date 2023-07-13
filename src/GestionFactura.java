@@ -37,7 +37,9 @@ public class GestionFactura extends JFrame {
     private JLabel lblFecha;
     private JTextField txtFecha;
     private Tienda t1;
-public GestionFactura(Tienda t) {
+    private DefaultTableModel model;
+
+    public GestionFactura(Tienda t) {
     t1 = t;
 
     cargarFicheroC();
@@ -48,7 +50,7 @@ public GestionFactura(Tienda t) {
     txtNumero.setText(Integer.toString(t1.getFacturas().size() + 1));
     txtFecha.setText(Factura.fechaActual());
 
-    DefaultTableModel model = new DefaultTableModel();
+    model = new DefaultTableModel();
     model.addColumn("Código");
     model.addColumn("Tipo");
     model.addColumn("Descripción");
@@ -77,7 +79,13 @@ public GestionFactura(Tienda t) {
             limpiar();
         }
     });
-}
+        btnAdd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                addArticulo();
+            }
+        });
+    }
     // Load from file methods
     public void cargarFicheroC() {
         String name = "DatosClientes.dat";
@@ -202,6 +210,31 @@ public GestionFactura(Tienda t) {
     }
 
     public void addArticulo() {
+        String cod = txtCodigo.getText();
+        String tipo = "";
+        String desc = "";
+        double precio = 0;
+        int cantidad = (int) spnCantidad.getValue();
+        if (t1.buscarPC(cod) != null) {
+            PC pc = t1.buscarPC(cod);
+            tipo = "PC/Laptop/AIO";
+            desc = pc.getMarca() + ", " + pc.getTipoPC() + ", " + pc.getSpecs();
+            precio = pc.getPrecio();
+        } else if (t1.buscarMonitor(cod) != null) {
+            Monitor mon = t1.buscarMonitor(cod);
+            tipo = "Monitor";
+            desc = mon.getMarca() + ", " + mon.getTecnologia() + ", " + mon.getResolucion() + ", " + mon.getTamano();
+            precio = mon.getPrecio();
+        } else if (t1.buscarPeriferico(cod) != null) {
+            Periferico per = t1.buscarPeriferico(cod);
+            tipo = "Periférico";
+            desc = per.getMarca() + ", " + per.getTipoF() + ", ";
+            precio = per.getPrecio();
+        }
+        double subtotal = precio * cantidad;
+
+        model.addRow(new Object[]{cod, tipo, desc, precio, cantidad, subtotal});
+
         txtCodigo.setText("");
         spnCantidad.setValue(0);
         updateArticulo();
