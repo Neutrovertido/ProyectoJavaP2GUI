@@ -109,6 +109,18 @@ public class GestionArticulos extends JFrame{
                 modificar();
             }
         });
+        txtCodigo.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                super.focusLost(e);
+                String cod = txtCodigo.getText();
+                if (t1.buscarPC(cod) != null || t1.buscarMonitor(cod) != null || t1.buscarPeriferico(cod) != null) {
+                    JOptionPane.showMessageDialog(null, "El artículo con ese código ya existe", "Valor incorrecto", JOptionPane.ERROR_MESSAGE);
+                    txtCodigo.setText("");
+                    txtCodigo.requestFocus();
+                }
+            }
+        });
     }
 
     public void setElements() {

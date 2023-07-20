@@ -1,9 +1,6 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.io.*;
 
 public class GestionClientes extends JFrame{
@@ -73,6 +70,19 @@ public class GestionClientes extends JFrame{
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 modificar();
+            }
+        });
+        txtId.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                super.focusLost(e);
+                String id = txtId.getText();
+                if (t1.buscarCliente(txtId.getText()) != null) {
+                    JOptionPane.showMessageDialog(null, "El cliente con ese ID ya existe", "Valor incorrecto", JOptionPane.ERROR_MESSAGE);
+                    txtId.setText("");
+                    txtId.requestFocus();
+                }
+
             }
         });
     }
