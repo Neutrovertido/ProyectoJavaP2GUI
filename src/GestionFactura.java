@@ -187,7 +187,7 @@ public class GestionFactura extends JFrame {
             } else if (t1.buscarMonitor(cod) != null) {
                 txaArticulo.setText("Monitor:\n" + t1.buscarMonitor(cod).getAtributos());
             } else if (t1.buscarPeriferico(cod) != null) {
-                txaArticulo.setText("Periférico:\n" + t1.buscarMonitor(cod).getAtributos());
+                txaArticulo.setText("Periférico:\n" + t1.buscarPeriferico(cod).getAtributos());
             } else {
                 txaArticulo.setText("Artículo:");
             }
@@ -228,7 +228,7 @@ public class GestionFactura extends JFrame {
         } else if (t1.buscarPeriferico(cod) != null) {
             Periferico per = t1.buscarPeriferico(cod);
             tipo = "Periférico";
-            desc = per.getMarca() + ", " + per.getTipoF() + ", ";
+            desc = per.getMarca() + ", " + per.getTipoF();
             precio = per.getPrecio();
         }
         double subtotal = precio * cantidad;
