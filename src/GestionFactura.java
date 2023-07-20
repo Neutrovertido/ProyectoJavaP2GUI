@@ -4,10 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.util.ArrayList;
 
 public class GestionFactura extends JFrame {
@@ -88,6 +85,12 @@ public class GestionFactura extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 addArticulo();
+            }
+        });
+        btnGuardar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                guardarFactura();
             }
         });
     }
@@ -250,6 +253,53 @@ public class GestionFactura extends JFrame {
     }
 
     public void guardarFactura() {
-        // Factura f = new Factura()
+        String cod = txtCodigo.getText();
+        String fecha = txtFecha.getText();
+        Cliente c = t1.buscarCliente(txtCliente.getText());
+
+        Factura f = new Factura(arti, cant, cod, fecha, c);
+        t1.registrarFactura(f);
+        guardarFicheroFactura();
+        String msg = "La factura ha sido ingresada correctamente.\n\n" + f.getAtributos();
+        JOptionPane.showMessageDialog(null, msg, "Factura ingresada", JOptionPane.INFORMATION_MESSAGE);
+        limpiar();
+        limpiarTabla();
+
+        System.out.println(t1.getAtributos());
+    }
+
+    public void guardarFicheroFactura() {
+        String name = "DatosFact.dat";
+        try {
+            FileOutputStream ficheroF = new FileOutputStream(name);
+
+            try (ObjectOutputStream objetoF = new ObjectOutputStream(ficheroF)) {
+                for (Factura i : t1.getFacturas()) {
+                    objetoF.writeObject(i);
+                }
+                objetoF.close();
+            }
+        } catch(FileNotFoundException e) {
+            System.out.println("Fichero inexistente.");
+        } catch(IOException e) {
+            System.out.println(e.getMessage());
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    // Misc methods
+    public void limpiarTabla() {
+        arti = new ArrayList<Articulo>();
+        cant = new ArrayList<Integer>();
+
+        model = new DefaultTableModel();
+        model.addColumn("Código");
+        model.addColumn("Tipo");
+        model.addColumn("Descripción");
+        model.addColumn("Precio");
+        model.addColumn("Cantidad");
+        model.addColumn("Subtotal");
+        this.tblFactura.setModel(model);
     }
 }
