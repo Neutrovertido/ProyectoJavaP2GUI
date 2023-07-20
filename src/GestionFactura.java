@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.ArrayList;
 
 public class GestionFactura extends JFrame {
     private JLabel lblTitulo;
@@ -37,48 +38,52 @@ public class GestionFactura extends JFrame {
     private JLabel lblFecha;
     private JTextField txtFecha;
     private Tienda t1;
+    private ArrayList<Articulo> arti;
+    private ArrayList<Integer> cant;
     private DefaultTableModel model;
 
     public GestionFactura(Tienda t) {
-    t1 = t;
+        t1 = t;
+        arti = new ArrayList<Articulo>();
+        cant = new ArrayList<Integer>();
 
-    cargarFicheroC();
-    cargarFicheroPC();
-    cargarFicheroMon();
-    cargarFicheroPer();
+        cargarFicheroC();
+        cargarFicheroPC();
+        cargarFicheroMon();
+        cargarFicheroPer();
 
-    txtNumero.setText(Integer.toString(t1.getFacturas().size() + 1));
-    txtFecha.setText(Factura.fechaActual());
+        txtNumero.setText(Integer.toString(t1.getFacturas().size() + 1));
+        txtFecha.setText(Factura.fechaActual());
 
-    model = new DefaultTableModel();
-    model.addColumn("Código");
-    model.addColumn("Tipo");
-    model.addColumn("Descripción");
-    model.addColumn("Precio");
-    model.addColumn("Cantidad");
-    model.addColumn("Subtotal");
-    this.tblFactura.setModel(model);
+        model = new DefaultTableModel();
+        model.addColumn("Código");
+        model.addColumn("Tipo");
+        model.addColumn("Descripción");
+        model.addColumn("Precio");
+        model.addColumn("Cantidad");
+        model.addColumn("Subtotal");
+        this.tblFactura.setModel(model);
 
-    txtCliente.addKeyListener(new KeyAdapter() {
-        @Override
-        public void keyTyped(KeyEvent e) {
-            super.keyTyped(e);
-            updateCliente();
-        }
-    });
-    txtCodigo.addKeyListener(new KeyAdapter() {
-        @Override
-        public void keyTyped(KeyEvent e) {
-            super.keyTyped(e);
-            updateArticulo();
-        }
-    });
-    btnLimpiar.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent actionEvent) {
-            limpiar();
-        }
-    });
+        txtCliente.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                super.keyTyped(e);
+                updateCliente();
+            }
+        });
+        txtCodigo.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                super.keyTyped(e);
+                updateArticulo();
+            }
+        });
+        btnLimpiar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                limpiar();
+            }
+        });
         btnAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -220,23 +225,31 @@ public class GestionFactura extends JFrame {
             tipo = "PC/Laptop/AIO";
             desc = pc.getMarca() + ", " + pc.getTipoPC() + ", " + pc.getSpecs();
             precio = pc.getPrecio();
+            arti.add(t1.buscarPC(cod));
         } else if (t1.buscarMonitor(cod) != null) {
             Monitor mon = t1.buscarMonitor(cod);
             tipo = "Monitor";
             desc = mon.getMarca() + ", " + mon.getTecnologia() + ", " + mon.getResolucion() + ", " + mon.getTamano();
             precio = mon.getPrecio();
+            arti.add(t1.buscarMonitor(cod));
         } else if (t1.buscarPeriferico(cod) != null) {
             Periferico per = t1.buscarPeriferico(cod);
             tipo = "Periférico";
             desc = per.getMarca() + ", " + per.getTipoF();
             precio = per.getPrecio();
+            arti.add(t1.buscarPeriferico(cod));
         }
         double subtotal = precio * cantidad;
+        cant.add(cantidad);
 
         model.addRow(new Object[]{cod, tipo, desc, precio, cantidad, subtotal});
 
         txtCodigo.setText("");
         spnCantidad.setValue(0);
         updateArticulo();
+    }
+
+    public void guardarFactura() {
+        // Factura f = new Factura()
     }
 }
