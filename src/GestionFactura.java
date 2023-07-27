@@ -102,6 +102,12 @@ public class GestionFactura extends JFrame {
                 }
             }
         });
+        btnBuscar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                buscarFactura();
+            }
+        });
     }
     // Load from file methods
     public void cargarFicheroC() {
@@ -318,6 +324,54 @@ public class GestionFactura extends JFrame {
             System.out.println(e.getMessage());
         } catch(Exception e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public void buscarFactura() {
+        String cod = txtCodigo.getText();
+        Factura f = t1.buscarFactura(cod);
+
+        if (f != null) {
+            limpiarTabla();
+
+            txtFecha.setText(f.getFecha());
+            txtCliente.setText(f.getCliente().getId());
+            updateCliente();
+
+
+            for (int i = 0; i < f.getArticulo().size(); i++) {
+                Articulo a = f.getArticulo().get(i);
+                String tipo = "";
+                String desc = "";
+                double precio = 0;
+                int cantidad = f.getCantidad().get(i);
+                cant.add(cantidad);
+                if (a.getClass() == PC.class) {
+                    PC pc = t1.buscarPC(a.getCodigo());
+                    tipo = "PC/Laptop/AIO";
+                    desc = pc.getMarca() + ", " + pc.getTipoPC() + ", " + pc.getSpecs();
+                    precio = pc.getPrecio();
+                    arti.add(t1.buscarPC(cod));
+                } else if (a.getClass() == Monitor.class) {
+                    Monitor mon = t1.buscarMonitor(a.getCodigo());
+                    tipo = "Monitor";
+                    desc = mon.getMarca() + ", " + mon.getTecnologia() + ", " + mon.getResolucion() + ", " + mon.getTamano();
+                    precio = mon.getPrecio();
+                    arti.add(t1.buscarMonitor(cod));
+                } else if (a.getClass() == Periferico.class) {
+                    Periferico per = t1.buscarPeriferico(a.getCodigo());
+                    tipo = "Periférico";
+                    desc = per.getMarca() + ", " + per.getTipoF();
+                    precio = per.getPrecio();
+                    arti.add(t1.buscarPeriferico(cod));
+                }
+                double subtotal = precio * cantidad;
+                model.addRow(new Object[]{cod, tipo, desc, precio, cantidad, subtotal});
+            }
+            updateArticulo();
+            totalizar();
+        } else {
+            JOptionPane.showMessageDialog(null, "La factura con ese número no existe", "Factura no encontrada", JOptionPane.ERROR_MESSAGE);
         }
     }
 
