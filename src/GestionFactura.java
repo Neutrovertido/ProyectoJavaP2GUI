@@ -48,9 +48,9 @@ public class GestionFactura extends JFrame {
         cargarFicheroPC();
         cargarFicheroMon();
         cargarFicheroPer();
+        cargarFicheroFact();
 
-        txtNumero.setText(Integer.toString(t1.getFacturas().size() + 1));
-        txtFecha.setText(Factura.fechaActual());
+        autoValues();
 
         model = new DefaultTableModel();
         model.addColumn("Código");
@@ -180,6 +180,27 @@ public class GestionFactura extends JFrame {
         }
     }
 
+    public void cargarFicheroFact() {
+        String name = "DatosFact.dat";
+        try {
+            FileInputStream ficheroFact = new FileInputStream(name);
+            try (ObjectInputStream objetoFact = new ObjectInputStream(ficheroFact)) {
+                Factura fact = (Factura) objetoFact.readObject();
+                while (fact != null) {
+                    t1.registrarFactura(fact);
+                    fact = (Factura) objetoFact.readObject();
+                }
+                objetoFact.close();
+            }
+        } catch(FileNotFoundException e) {
+            System.out.println("Fichero inexistente.");
+        } catch(IOException e) {
+            System.out.println(e.getMessage());
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public void updateCliente() {
         try {
             txaCliente.setText("Cliente:\n" + t1.buscarCliente(txtCliente.getText()).getAtributos());
@@ -216,6 +237,7 @@ public class GestionFactura extends JFrame {
         txtTotal.setText("");
         updateArticulo();
         updateCliente();
+        autoValues();
     }
 
     public void addArticulo() {
@@ -265,6 +287,7 @@ public class GestionFactura extends JFrame {
         JOptionPane.showMessageDialog(null, msg, "Factura ingresada", JOptionPane.INFORMATION_MESSAGE);
         limpiar();
         limpiarTabla();
+        autoValues();
 
         System.out.println(t1.getAtributos());
     }
@@ -302,5 +325,10 @@ public class GestionFactura extends JFrame {
         model.addColumn("Cantidad");
         model.addColumn("Subtotal");
         this.tblFactura.setModel(model);
+    }
+
+    public void autoValues() {
+        txtNumero.setText(Integer.toString(t1.getFacturas().size() + 1));
+        txtFecha.setText(Factura.fechaActual());
     }
 }
