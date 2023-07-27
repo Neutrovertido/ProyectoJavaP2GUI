@@ -11,19 +11,19 @@ public class Main {
 
         Tienda t1 = new Tienda("tty8", "Tienda Hardware & Mas");
 
-        JFrame ga = new JFrame("Artículos");
+        /*JFrame ga = new JFrame("Artículos");
         ga.setContentPane(new GestionArticulos(t1).pnlArticulos);
         ga.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         ga.pack();
         ga.setResizable(true);
-        ga.setVisible(true);
+        ga.setVisible(true);*/
 
-        JFrame gc = new JFrame("Clientes");
+        /*JFrame gc = new JFrame("Clientes");
         gc.setContentPane(new GestionClientes(t1).pnlClientes);
         gc.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         gc.setSize(600, 400);
         gc.setResizable(true);
-        gc.setVisible(true);
+        gc.setVisible(true);*/
 
         JFrame gf = new JFrame("Factura");
         gf.setContentPane(new GestionFactura(t1).pnlFactura);
