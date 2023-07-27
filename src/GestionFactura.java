@@ -79,6 +79,7 @@ public class GestionFactura extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 limpiar();
+                limpiarTabla();
             }
         });
         btnAdd.addActionListener(new ActionListener() {
