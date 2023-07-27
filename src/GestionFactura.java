@@ -1,9 +1,6 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -92,6 +89,17 @@ public class GestionFactura extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 guardarFactura();
+            }
+        });
+        txtDescuento.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                super.focusLost(e);
+                try {
+                    totalizar();
+                } catch (Exception ex) {
+
+                }
             }
         });
     }
@@ -273,6 +281,7 @@ public class GestionFactura extends JFrame {
         txtCodigo.setText("");
         spnCantidad.setValue(0);
         updateArticulo();
+        totalizar();
     }
 
     public void guardarFactura() {
@@ -325,6 +334,26 @@ public class GestionFactura extends JFrame {
         model.addColumn("Cantidad");
         model.addColumn("Subtotal");
         this.tblFactura.setModel(model);
+    }
+
+    public void totalizar() {
+        double subt = 0.0;
+        int count = tblFactura.getModel().getRowCount();
+        double desc = 0.0;
+        String tdesc = txtDescuento.getText();
+
+        for (int i = 0; i < count; i++) {
+            double valor = (double) tblFactura.getModel().getValueAt(i, 3);
+            int cantidad = (int) tblFactura.getModel().getValueAt(i, 4);
+            subt += valor * cantidad;
+        }
+        txtSubtotal.setText(String.valueOf(subt));
+
+        if (tdesc.length() != 0) {
+            desc = subt * Double.parseDouble(tdesc) / 100;
+        }
+        double total = subt - desc;
+        txtTotal.setText(String.valueOf(total));
     }
 
     public void autoValues() {

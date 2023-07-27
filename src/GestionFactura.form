@@ -180,7 +180,7 @@
         </constraints>
         <properties>
           <font size="18"/>
-          <toolTipText value=""/>
+          <text value=""/>
         </properties>
       </component>
       <component id="65092" class="javax.swing.JLabel" binding="lblTotal">
