@@ -260,38 +260,42 @@ public class GestionFactura extends JFrame {
         String desc = "";
         double precio = 0;
         int cantidad = (int) spnCantidad.getValue();
-        if (t1.buscarPC(cod) != null) {
-            PC pc = t1.buscarPC(cod);
-            tipo = "PC/Laptop/AIO";
-            desc = pc.getMarca() + ", " + pc.getTipoPC() + ", " + pc.getSpecs();
-            precio = pc.getPrecio();
-            arti.add(t1.buscarPC(cod));
-        } else if (t1.buscarMonitor(cod) != null) {
-            Monitor mon = t1.buscarMonitor(cod);
-            tipo = "Monitor";
-            desc = mon.getMarca() + ", " + mon.getTecnologia() + ", " + mon.getResolucion() + ", " + mon.getTamano();
-            precio = mon.getPrecio();
-            arti.add(t1.buscarMonitor(cod));
-        } else if (t1.buscarPeriferico(cod) != null) {
-            Periferico per = t1.buscarPeriferico(cod);
-            tipo = "Periférico";
-            desc = per.getMarca() + ", " + per.getTipoF();
-            precio = per.getPrecio();
-            arti.add(t1.buscarPeriferico(cod));
+        if (cantidad > 0) {
+            if (t1.buscarPC(cod) != null) {
+                PC pc = t1.buscarPC(cod);
+                tipo = "PC/Laptop/AIO";
+                desc = pc.getMarca() + ", " + pc.getTipoPC() + ", " + pc.getSpecs();
+                precio = pc.getPrecio();
+                arti.add(t1.buscarPC(cod));
+            } else if (t1.buscarMonitor(cod) != null) {
+                Monitor mon = t1.buscarMonitor(cod);
+                tipo = "Monitor";
+                desc = mon.getMarca() + ", " + mon.getTecnologia() + ", " + mon.getResolucion() + ", " + mon.getTamano();
+                precio = mon.getPrecio();
+                arti.add(t1.buscarMonitor(cod));
+            } else if (t1.buscarPeriferico(cod) != null) {
+                Periferico per = t1.buscarPeriferico(cod);
+                tipo = "Periférico";
+                desc = per.getMarca() + ", " + per.getTipoF();
+                precio = per.getPrecio();
+                arti.add(t1.buscarPeriferico(cod));
+            }
+            double subtotal = precio * cantidad;
+            cant.add(cantidad);
+
+            model.addRow(new Object[]{cod, tipo, desc, precio, cantidad, subtotal});
+
+            txtCodigo.setText("");
+            spnCantidad.setValue(0);
+            updateArticulo();
+            totalizar();
+        } else {
+            JOptionPane.showMessageDialog(null, "No puede agregar artículos con cantidad 0 o menor", "No añadido", JOptionPane.ERROR_MESSAGE);
         }
-        double subtotal = precio * cantidad;
-        cant.add(cantidad);
-
-        model.addRow(new Object[]{cod, tipo, desc, precio, cantidad, subtotal});
-
-        txtCodigo.setText("");
-        spnCantidad.setValue(0);
-        updateArticulo();
-        totalizar();
     }
 
     public void guardarFactura() {
-        String cod = txtCodigo.getText();
+        String cod = txtNumero.getText();
         String fecha = txtFecha.getText();
         Cliente c = t1.buscarCliente(txtCliente.getText());
 
@@ -328,7 +332,7 @@ public class GestionFactura extends JFrame {
     }
 
     public void buscarFactura() {
-        String cod = txtCodigo.getText();
+        String cod = txtNumero.getText();
         Factura f = t1.buscarFactura(cod);
 
         if (f != null) {
@@ -341,6 +345,7 @@ public class GestionFactura extends JFrame {
 
             for (int i = 0; i < f.getArticulo().size(); i++) {
                 Articulo a = f.getArticulo().get(i);
+                String artcod = a.getCodigo();
                 String tipo = "";
                 String desc = "";
                 double precio = 0;
@@ -351,22 +356,22 @@ public class GestionFactura extends JFrame {
                     tipo = "PC/Laptop/AIO";
                     desc = pc.getMarca() + ", " + pc.getTipoPC() + ", " + pc.getSpecs();
                     precio = pc.getPrecio();
-                    arti.add(t1.buscarPC(cod));
+                    arti.add(pc);
                 } else if (a.getClass() == Monitor.class) {
                     Monitor mon = t1.buscarMonitor(a.getCodigo());
                     tipo = "Monitor";
                     desc = mon.getMarca() + ", " + mon.getTecnologia() + ", " + mon.getResolucion() + ", " + mon.getTamano();
                     precio = mon.getPrecio();
-                    arti.add(t1.buscarMonitor(cod));
+                    arti.add(mon);
                 } else if (a.getClass() == Periferico.class) {
                     Periferico per = t1.buscarPeriferico(a.getCodigo());
                     tipo = "Periférico";
                     desc = per.getMarca() + ", " + per.getTipoF();
                     precio = per.getPrecio();
-                    arti.add(t1.buscarPeriferico(cod));
+                    arti.add(per);
                 }
                 double subtotal = precio * cantidad;
-                model.addRow(new Object[]{cod, tipo, desc, precio, cantidad, subtotal});
+                model.addRow(new Object[]{artcod, tipo, desc, precio, cantidad, subtotal});
             }
             updateArticulo();
             totalizar();
