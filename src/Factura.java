@@ -7,23 +7,26 @@ public class Factura implements java.io.Serializable {
     ArrayList<Articulo> articulo;
     ArrayList<Integer> cantidad;
     double total;
+    double descuento;
 
-    public Factura(ArrayList<Articulo> articulo, ArrayList<Integer> cantidad, String numero, String fecha, Cliente cliente) {
+    public Factura(ArrayList<Articulo> articulo, ArrayList<Integer> cantidad, String numero, String fecha, Cliente cliente, double descuento) {
         this.codigoF = numero;
         this.fecha = fecha;
         this.cliente = cliente;
         this.articulo = articulo;
         this.cantidad = cantidad;
+        this.descuento = descuento;
 
         calcularTotal();
     }
 
-    public Factura(ArrayList<Articulo> articulo, ArrayList<Integer> cantidad, String numero, Cliente cliente) {
+    public Factura(ArrayList<Articulo> articulo, ArrayList<Integer> cantidad, String numero, Cliente cliente, double descuento) {
         this.codigoF = numero;
         this.fecha = fechaActual();
         this.cliente = cliente;
         this.articulo = articulo;
         this.cantidad = cantidad;
+        this.descuento = descuento;
 
         calcularTotal();
     }
@@ -39,6 +42,10 @@ public class Factura implements java.io.Serializable {
 
     public Cliente getCliente() {
         return this.cliente;
+    }
+
+    public double getDescuento() {
+        return this.descuento;
     }
 
     public ArrayList<Articulo> getArticulo() {

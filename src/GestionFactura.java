@@ -300,8 +300,9 @@ public class GestionFactura extends JFrame {
         if (t1.buscarFactura(cod) == null) {
             String fecha = txtFecha.getText();
             Cliente c = t1.buscarCliente(txtCliente.getText());
+            double d = Double.parseDouble(txtDescuento.getText());
 
-            Factura f = new Factura(arti, cant, cod, fecha, c);
+            Factura f = new Factura(arti, cant, cod, fecha, c, d);
             t1.registrarFactura(f);
             guardarFicheroFactura();
             String msg = "La factura ha sido ingresada correctamente.\n\n" + f.getAtributos();
@@ -345,6 +346,7 @@ public class GestionFactura extends JFrame {
 
             txtFecha.setText(f.getFecha());
             txtCliente.setText(f.getCliente().getId());
+            txtDescuento.setText(String.valueOf(f.getDescuento()));
             updateCliente();
 
 
