@@ -296,19 +296,24 @@ public class GestionFactura extends JFrame {
 
     public void guardarFactura() {
         String cod = txtNumero.getText();
-        String fecha = txtFecha.getText();
-        Cliente c = t1.buscarCliente(txtCliente.getText());
 
-        Factura f = new Factura(arti, cant, cod, fecha, c);
-        t1.registrarFactura(f);
-        guardarFicheroFactura();
-        String msg = "La factura ha sido ingresada correctamente.\n\n" + f.getAtributos();
-        JOptionPane.showMessageDialog(null, msg, "Factura ingresada", JOptionPane.INFORMATION_MESSAGE);
-        limpiar();
-        limpiarTabla();
-        autoValues();
+        if (t1.buscarFactura(cod) == null) {
+            String fecha = txtFecha.getText();
+            Cliente c = t1.buscarCliente(txtCliente.getText());
 
-        System.out.println(t1.getAtributos());
+            Factura f = new Factura(arti, cant, cod, fecha, c);
+            t1.registrarFactura(f);
+            guardarFicheroFactura();
+            String msg = "La factura ha sido ingresada correctamente.\n\n" + f.getAtributos();
+            JOptionPane.showMessageDialog(null, msg, "Factura ingresada", JOptionPane.INFORMATION_MESSAGE);
+            limpiar();
+            limpiarTabla();
+            autoValues();
+
+            System.out.println(t1.getAtributos());
+        } else {
+            JOptionPane.showMessageDialog(null, "Ya existe una factura con ese número", "Factura no ingresada", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void guardarFicheroFactura() {
