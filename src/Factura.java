@@ -69,17 +69,24 @@ public class Factura implements java.io.Serializable {
         return dia + "/" + mes +  "/" + anho;
     }
 
-    private void calcularTotal() {
-        this.total = 0.0;
+    private double getSubtotal() {
+        double subtotal = 0.0;
         for (int i = 0; i < cantidad.size(); i++) {
-            this.total += articulo.get(i).getPrecio() * cantidad.get(i);
+            subtotal += articulo.get(i).getPrecio() * cantidad.get(i);
         }
+        return subtotal;
+    }
+
+    private void calcularTotal() {
+        double subt = getSubtotal();
+        this.total = subt + subt * 0.15 - subt * descuento / 100;
     }
 
     public String getAtributos() {
 
         String articulos = "";
         String cantidades = "";
+        double subt = getSubtotal();
 
         for (int i = 0; i < getArticulo().size(); i++) {
             articulos += getArticulo().get(i).getAtributos() + " ";
@@ -94,6 +101,9 @@ public class Factura implements java.io.Serializable {
                 "\n" + getCliente().getAtributos() +
                 "\nProductos: \n[ " + articulos +
                 "]\nCantidades: \n[ " + cantidades + "]" +
+                "\nSubtotal: " + subt +
+                "\nImpuesto: " + subt * 0.15 +
+                "\nDescuento: " + subt * getDescuento() +
                 "\nTotal: " + getTotal();
     }
 }

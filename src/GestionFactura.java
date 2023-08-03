@@ -31,6 +31,8 @@ public class GestionFactura extends JFrame {
     private JButton btnLimpiar;
     private JLabel lblFecha;
     private JTextField txtFecha;
+    private JLabel lblImpuesto;
+    private JTextField txtImpuesto;
     private Tienda t1;
     private ArrayList<Articulo> arti;
     private ArrayList<Integer> cant;
@@ -294,7 +296,12 @@ public class GestionFactura extends JFrame {
         if (t1.buscarFactura(cod) == null) {
             String fecha = txtFecha.getText();
             Cliente c = t1.buscarCliente(txtCliente.getText());
-            double d = Double.parseDouble(txtDescuento.getText());
+            double d = 0.0;
+            try {
+                d = Double.parseDouble(txtDescuento.getText());
+            } catch (Exception e) {
+                System.out.println("Descuento entendido como 0%");
+            }
 
             Factura f = new Factura(arti, cant, cod, fecha, c, d);
             t1.registrarFactura(f);
@@ -412,7 +419,11 @@ public class GestionFactura extends JFrame {
         if (tdesc.length() != 0) {
             desc = subt * Double.parseDouble(tdesc) / 100;
         }
-        double total = subt - desc;
+
+        double imp = subt * 0.15;
+        txtImpuesto.setText(String.valueOf(imp));
+
+        double total = subt - desc + imp;
         txtTotal.setText(String.valueOf(total));
     }
 
