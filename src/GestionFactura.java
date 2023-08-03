@@ -244,6 +244,7 @@ public class GestionFactura extends JFrame {
         spnCantidad.setValue(0);
         txtSubtotal.setText("");
         txtDescuento.setText("");
+        txtImpuesto.setText("");
         txtTotal.setText("");
         updateArticulo();
         updateCliente();

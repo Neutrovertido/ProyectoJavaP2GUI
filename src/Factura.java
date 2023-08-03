@@ -103,7 +103,7 @@ public class Factura implements java.io.Serializable {
                 "]\nCantidades: \n[ " + cantidades + "]" +
                 "\nSubtotal: " + subt +
                 "\nImpuesto: " + subt * 0.15 +
-                "\nDescuento: " + subt * getDescuento() +
+                "\nDescuento: " + subt * getDescuento() / 100 +
                 "\nTotal: " + getTotal();
     }
 }
