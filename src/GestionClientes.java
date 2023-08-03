@@ -31,7 +31,6 @@ public class GestionClientes extends JFrame{
         model.addColumn("RTN");
         this.tblClientes.setModel(model);
 
-        cargarFicheroC();
         cargar();
         btnLimpiar.addActionListener(new ActionListener() {
             @Override

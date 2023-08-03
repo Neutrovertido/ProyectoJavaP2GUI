@@ -41,12 +41,6 @@ public class GestionFactura extends JFrame {
         arti = new ArrayList<Articulo>();
         cant = new ArrayList<Integer>();
 
-        cargarFicheroC();
-        cargarFicheroPC();
-        cargarFicheroMon();
-        cargarFicheroPer();
-        cargarFicheroFact();
-
         autoValues();
 
         model = new DefaultTableModel();

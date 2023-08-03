@@ -46,10 +46,6 @@ public class GestionArticulos extends JFrame{
 
     public GestionArticulos(Tienda t) {
         t1 = t;
-
-        cargarFicheroPC();
-        cargarFicheroMon();
-        cargarFicheroPer();
         setElements();
 
         btnLimpiar.addActionListener(new ActionListener() {

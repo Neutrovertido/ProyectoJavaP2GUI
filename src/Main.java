@@ -25,12 +25,20 @@ public class Main {
         gc.setResizable(true);
         gc.setVisible(true);*/
 
-        JFrame gf = new JFrame("Factura");
+        /*JFrame gf = new JFrame("Factura");
         gf.setContentPane(new GestionFactura(t1).pnlFactura);
         gf.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         gf.setSize(800, 800);
         gf.setResizable(true);
-        gf.setVisible(true);
+        gf.setVisible(true);*/
+
+        JFrame gm = new JFrame("Menú Principal");
+        gm.setContentPane(new MenuPrincipal(t1).pnlMenu);
+        gm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        gm.pack();
+        gm.setVisible(true);
+
+        System.out.println(t1.getAtributos());
 
         // Legacy
         /*GestionClientes c = new GestionClientes();
