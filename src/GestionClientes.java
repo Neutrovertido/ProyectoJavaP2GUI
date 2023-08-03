@@ -20,6 +20,8 @@ public class GestionClientes extends JFrame{
     private JButton btnModificar;
     private JButton btnMenuP;
     private JTable tblClientes;
+    private JPanel pnlButtons;
+    private JPanel pnlData;
     private Tienda t1;
 
     public GestionClientes(Tienda t) {

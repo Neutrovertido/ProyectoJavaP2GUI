@@ -13,6 +13,7 @@ public class MenuPrincipal {
     private JButton btnFacturas;
     private JButton btnSalir;
     public JPanel pnlMenu;
+    private JPanel pnlButtons;
     private Tienda t1;
 
     public MenuPrincipal(Tienda t) {

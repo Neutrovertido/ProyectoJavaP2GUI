@@ -42,6 +42,9 @@ public class GestionArticulos extends JFrame{
     public JPanel pnlArticulos;
     private JLabel lblTamano;
     private JComboBox cmbTamano;
+    private JPanel pnlData;
+    private JPanel pnlData2;
+    private JPanel pnlButtons;
     private Tienda t1;
 
     public GestionArticulos(Tienda t) {
