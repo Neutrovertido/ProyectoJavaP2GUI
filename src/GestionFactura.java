@@ -33,6 +33,8 @@ public class GestionFactura extends JFrame {
     private JTextField txtFecha;
     private JLabel lblImpuesto;
     private JTextField txtImpuesto;
+    private JPanel pnlData;
+    private JPanel pnlData2;
     private Tienda t1;
     private ArrayList<Articulo> arti;
     private ArrayList<Integer> cant;
