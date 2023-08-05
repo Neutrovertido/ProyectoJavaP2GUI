@@ -159,11 +159,11 @@ public class GestionArticulos extends JFrame{
 
     public void guardarArticulo() {
         String codigo = txtCodigo.getText();
-        if (codigo.length() != 0) {
+        String marca = txtMarca.getText();
+        if (codigo.length() != 0 && txtPrecio.getText().length() != 0 && marca.length() != 0) {
             double precio = Double.parseDouble(txtPrecio.getText());
             int disponible = (int) spnDisponible.getValue();
             boolean estado = rbtNuevo.isSelected(); // True = Nuevo / False = Usado
-            String marca = txtMarca.getText();
 
             if (t1.buscarPC(codigo) == null && t1.buscarMonitor(codigo) == null && t1.buscarPeriferico(codigo) == null) {
                 if (rbtPC.isSelected()) {
@@ -197,7 +197,7 @@ public class GestionArticulos extends JFrame{
             }
             setElements();
         } else {
-            JOptionPane.showMessageDialog(null, "El artículo no puede tener un código vacío", "No ingresado", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Los siguientes campos no pueden ir vacíos:\nCódigo, Precio y Marca\nIntente nuevamente tras completarlos", "No ingresado", JOptionPane.ERROR_MESSAGE);
         }
     }
 
