@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,6 +15,7 @@ public class MenuPrincipal {
     private JButton btnSalir;
     public JPanel pnlMenu;
     private JPanel pnlButtons;
+    private JButton btnConsultas;
     private Tienda t1;
 
     public MenuPrincipal(Tienda t) {
@@ -61,6 +63,19 @@ public class MenuPrincipal {
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
+        });
+        btnConsultas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame gcon = new JFrame("Consultas");
+                gcon.setContentPane(new MenuConsultas().pnlConsultas);
+                gcon.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                gcon.pack();
+                gcon.setResizable(true);
+                gcon.setVisible(true);
+            }
+        });
+        lblTitulo.addComponentListener(new ComponentAdapter() {
         });
     }
 
