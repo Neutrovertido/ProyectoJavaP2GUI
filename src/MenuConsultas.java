@@ -15,6 +15,9 @@ public class MenuConsultas {
     private JTable tblClientes;
     private JTable tblArticulos;
     private JTable tblFacturas;
+    private DefaultTableModel mdlClientes;
+    private DefaultTableModel mdlArticulos;
+    private DefaultTableModel mdlFacturas;
     private Tienda t1;
     public MenuConsultas(Tienda t) {
         t1 = t;
@@ -22,8 +25,7 @@ public class MenuConsultas {
         cargarClientes();
         cargarArticulos();
         cargarFacturas();
-        txtClientes.addKeyListener(new KeyAdapter() {
-        });
+
     }
 
     // Load to table methods
@@ -37,6 +39,7 @@ public class MenuConsultas {
             model.addRow(new Object[]{c.id, c.nombre, c.rtn});
         }
 
+        this.mdlClientes = model;
         this.tblClientes.setModel(model);
     }
 
@@ -95,6 +98,7 @@ public class MenuConsultas {
             model.addRow(new Object[]{per.codigo, per.precio, per.disponible, estado, per.marca, descripcion});
         }
 
+        this.mdlArticulos = model;
         this.tblArticulos.setModel(model);
     }
 
@@ -122,6 +126,7 @@ public class MenuConsultas {
             model.addRow(new Object[]{f.codigoF, f.fecha, cliente, detalles, f.descuento, f.total});
         }
 
+        this.mdlFacturas = model;
         this.tblFacturas.setModel(model);
     }
 }
