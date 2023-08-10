@@ -24,7 +24,9 @@
             <constraints>
               <tabbedpane title="Clientes"/>
             </constraints>
-            <properties/>
+            <properties>
+              <background color="-729395"/>
+            </properties>
             <border type="none"/>
             <children>
               <component id="edd73" class="javax.swing.JTextField" binding="txtClientes">
@@ -41,10 +43,12 @@
                 <constraints>
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
+                <properties>
+                  <background color="-729395"/>
+                </properties>
                 <border type="none"/>
                 <children>
-                  <component id="fba17" class="javax.swing.JTable" binding="table1" default-binding="true">
+                  <component id="fba17" class="javax.swing.JTable" binding="tblClientes">
                     <constraints/>
                     <properties/>
                   </component>
@@ -57,7 +61,9 @@
             <constraints>
               <tabbedpane title="Artículos"/>
             </constraints>
-            <properties/>
+            <properties>
+              <background color="-729395"/>
+            </properties>
             <border type="none"/>
             <children>
               <component id="84141" class="javax.swing.JTextField" binding="txtArticulos">
@@ -72,10 +78,12 @@
                 <constraints>
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
+                <properties>
+                  <background color="-729395"/>
+                </properties>
                 <border type="none"/>
                 <children>
-                  <component id="4ea84" class="javax.swing.JTable" binding="table2" default-binding="true">
+                  <component id="4ea84" class="javax.swing.JTable" binding="tblArticulos">
                     <constraints/>
                     <properties/>
                   </component>
@@ -88,7 +96,9 @@
             <constraints>
               <tabbedpane title="Facturas"/>
             </constraints>
-            <properties/>
+            <properties>
+              <background color="-729395"/>
+            </properties>
             <border type="none"/>
             <children>
               <component id="bef28" class="javax.swing.JTextField" binding="txtFacturas">
@@ -103,10 +113,12 @@
                 <constraints>
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
+                <properties>
+                  <background color="-729395"/>
+                </properties>
                 <border type="none"/>
                 <children>
-                  <component id="dac59" class="javax.swing.JTable" binding="table3" default-binding="true">
+                  <component id="dac59" class="javax.swing.JTable" binding="tblFacturas">
                     <constraints/>
                     <properties/>
                   </component>

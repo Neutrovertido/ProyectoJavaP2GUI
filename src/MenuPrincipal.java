@@ -68,9 +68,9 @@ public class MenuPrincipal {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFrame gcon = new JFrame("Consultas");
-                gcon.setContentPane(new MenuConsultas().pnlConsultas);
+                gcon.setContentPane(new MenuConsultas(t1).pnlConsultas);
                 gcon.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-                gcon.pack();
+                gcon.setSize(800, 600);
                 gcon.setResizable(true);
                 gcon.setVisible(true);
             }
