@@ -308,24 +308,32 @@ public class GestionFactura extends JFrame {
 
         if (t1.buscarFactura(cod) == null) {
             String fecha = txtFecha.getText();
-            Cliente c = t1.buscarCliente(txtCliente.getText());
-            double d = 0.0;
-            try {
-                d = Double.parseDouble(txtDescuento.getText());
-            } catch (Exception e) {
-                System.out.println("Descuento entendido como 0%");
+            if (fecha.matches("[0-9]+/[0-9]+/[0-9]+")) {
+                if (t1.buscarCliente(txtCliente.getText()) != null) {
+                    Cliente c = t1.buscarCliente(txtCliente.getText());
+                    double d = 0.0;
+                    try {
+                        d = Double.parseDouble(txtDescuento.getText());
+                    } catch (Exception e) {
+                        System.out.println("Descuento entendido como 0%");
+                    }
+
+                    Factura f = new Factura(arti, cant, cod, fecha, c, d);
+                    t1.registrarFactura(f);
+                    guardarFicheroFactura();
+                    String msg = "La factura ha sido ingresada correctamente.\n\n" + f.getAtributos();
+                    JOptionPane.showMessageDialog(null, msg, "Factura ingresada", JOptionPane.INFORMATION_MESSAGE);
+                    limpiar();
+                    limpiarTabla();
+                    autoValues();
+
+                    System.out.println(t1.getAtributos());
+                } else {
+                    JOptionPane.showMessageDialog(null, "El cliente especificado no existe", "Factura no ingresada", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "La fecha debe seguir el formato:\nDD/MM/YYYY", "Factura no ingresada", JOptionPane.ERROR_MESSAGE);
             }
-
-            Factura f = new Factura(arti, cant, cod, fecha, c, d);
-            t1.registrarFactura(f);
-            guardarFicheroFactura();
-            String msg = "La factura ha sido ingresada correctamente.\n\n" + f.getAtributos();
-            JOptionPane.showMessageDialog(null, msg, "Factura ingresada", JOptionPane.INFORMATION_MESSAGE);
-            limpiar();
-            limpiarTabla();
-            autoValues();
-
-            System.out.println(t1.getAtributos());
         } else {
             JOptionPane.showMessageDialog(null, "Ya existe una factura con ese número", "Factura no ingresada", JOptionPane.ERROR_MESSAGE);
         }
