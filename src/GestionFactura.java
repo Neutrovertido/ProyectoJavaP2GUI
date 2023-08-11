@@ -267,22 +267,34 @@ public class GestionFactura extends JFrame {
                 tipo = "PC/Laptop/AIO";
                 desc = pc.getMarca() + ", " + pc.getTipoPC() + ", " + pc.getSpecs();
                 precio = pc.getPrecio();
-                arti.add(t1.buscarPC(cod));
-                found = true;
+                if (arti.contains(pc)) {
+                    JOptionPane.showMessageDialog(null, "El artículo especificado ya se encuentra en el carrito", "No añadido", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    arti.add(t1.buscarPC(cod));
+                    found = true;
+                }
             } else if (t1.buscarMonitor(cod) != null) {
                 Monitor mon = t1.buscarMonitor(cod);
                 tipo = "Monitor";
                 desc = mon.getMarca() + ", " + mon.getTecnologia() + ", " + mon.getResolucion() + ", " + mon.getTamano();
                 precio = mon.getPrecio();
-                arti.add(t1.buscarMonitor(cod));
-                found = true;
+                if (arti.contains(mon)) {
+                    JOptionPane.showMessageDialog(null, "El artículo especificado ya se encuentra en el carrito", "No añadido", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    arti.add(t1.buscarMonitor(cod));
+                    found = true;
+                }
             } else if (t1.buscarPeriferico(cod) != null) {
                 Periferico per = t1.buscarPeriferico(cod);
                 tipo = "Periférico";
                 desc = per.getMarca() + ", " + per.getTipoF();
                 precio = per.getPrecio();
-                arti.add(t1.buscarPeriferico(cod));
-                found = true;
+                if (arti.contains(per)) {
+                    JOptionPane.showMessageDialog(null, "El artículo especificado ya se encuentra en el carrito", "No añadido", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    arti.add(t1.buscarPeriferico(cod));
+                    found = true;
+                }
             }
 
             if (found) {
