@@ -2,6 +2,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
 import java.io.*;
+import java.util.regex.Pattern;
 
 public class GestionClientes extends JFrame{
     private JLabel lblTitulo;
@@ -100,24 +101,28 @@ public class GestionClientes extends JFrame{
         if (id.length() != 0 && nombre.length() != 0) {
             String rtn = txtRtn.getText();
 
-            if (t1.buscarCliente(txtId.getText()) == null) {
-                Cliente cli = new Cliente(id, nombre, rtn);
-                t1.registrarCliente(cli);
+            if (t1.buscarCliente(id) == null) {
+                if (id.matches("\\d\\d\\d\\d-\\d\\d\\d\\d-\\d\\d\\d\\d\\d")) {
+                    Cliente cli = new Cliente(id, nombre, rtn);
+                    t1.registrarCliente(cli);
 
-                DefaultTableModel model = new DefaultTableModel();
-                model.addColumn("ID");
-                model.addColumn("Nombre");
-                model.addColumn("RTN");
+                    DefaultTableModel model = new DefaultTableModel();
+                    model.addColumn("ID");
+                    model.addColumn("Nombre");
+                    model.addColumn("RTN");
 
-                for (Cliente c : t1.getClientes()) {
-                    model.addRow(new Object[]{c.id, c.nombre, c.rtn});
+                    for (Cliente c : t1.getClientes()) {
+                        model.addRow(new Object[]{c.id, c.nombre, c.rtn});
+                    }
+
+                    this.tblClientes.setModel(model);
+
+                    guardarFicheroC();
+
+                    t1.imprimirClientes();
+                } else {
+                    JOptionPane.showMessageDialog(null, "La ID debe llevar el formato:\n xxxx-xxxx-xxxxx", "Cliente no ingresado", JOptionPane.ERROR_MESSAGE);
                 }
-
-                this.tblClientes.setModel(model);
-
-                guardarFicheroC();
-
-                t1.imprimirClientes();
             } else {
                 JOptionPane.showMessageDialog(null, "El cliente con ese ID ya existe", "Cliente no ingresado", JOptionPane.ERROR_MESSAGE);
             }
