@@ -256,6 +256,7 @@ public class GestionFactura extends JFrame {
 
     public void addArticulo() {
         String cod = txtCodigo.getText();
+        boolean found = false;
         String tipo = "";
         String desc = "";
         double precio = 0;
@@ -267,28 +268,36 @@ public class GestionFactura extends JFrame {
                 desc = pc.getMarca() + ", " + pc.getTipoPC() + ", " + pc.getSpecs();
                 precio = pc.getPrecio();
                 arti.add(t1.buscarPC(cod));
+                found = true;
             } else if (t1.buscarMonitor(cod) != null) {
                 Monitor mon = t1.buscarMonitor(cod);
                 tipo = "Monitor";
                 desc = mon.getMarca() + ", " + mon.getTecnologia() + ", " + mon.getResolucion() + ", " + mon.getTamano();
                 precio = mon.getPrecio();
                 arti.add(t1.buscarMonitor(cod));
+                found = true;
             } else if (t1.buscarPeriferico(cod) != null) {
                 Periferico per = t1.buscarPeriferico(cod);
                 tipo = "Periférico";
                 desc = per.getMarca() + ", " + per.getTipoF();
                 precio = per.getPrecio();
                 arti.add(t1.buscarPeriferico(cod));
+                found = true;
             }
-            double subtotal = precio * cantidad;
-            cant.add(cantidad);
 
-            model.addRow(new Object[]{cod, tipo, desc, precio, cantidad, subtotal});
+            if (found) {
+                double subtotal = precio * cantidad;
+                cant.add(cantidad);
 
-            txtCodigo.setText("");
-            spnCantidad.setValue(0);
-            updateArticulo();
-            totalizar();
+                model.addRow(new Object[]{cod, tipo, desc, precio, cantidad, subtotal});
+
+                txtCodigo.setText("");
+                spnCantidad.setValue(0);
+                updateArticulo();
+                totalizar();
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe el articulo especificado", "No añadido", JOptionPane.ERROR_MESSAGE);
+            }
         } else {
             JOptionPane.showMessageDialog(null, "No puede agregar artículos con cantidad 0 o menor", "No añadido", JOptionPane.ERROR_MESSAGE);
         }
