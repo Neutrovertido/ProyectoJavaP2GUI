@@ -1,5 +1,9 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 
 public class MenuConsultas {
@@ -26,6 +30,30 @@ public class MenuConsultas {
         cargarArticulos();
         cargarFacturas();
 
+        txtClientes.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(((DefaultTableModel) tblClientes.getModel()));
+                sorter.setRowFilter(RowFilter.regexFilter(txtClientes.getText()));
+                tblClientes.setRowSorter(sorter);
+            }
+        });
+        txtArticulos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(((DefaultTableModel) tblArticulos.getModel()));
+                sorter.setRowFilter(RowFilter.regexFilter(txtArticulos.getText()));
+                tblArticulos.setRowSorter(sorter);
+            }
+        });
+        txtFacturas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(((DefaultTableModel) tblFacturas.getModel()));
+                sorter.setRowFilter(RowFilter.regexFilter(txtFacturas.getText()));
+                tblFacturas.setRowSorter(sorter);
+            }
+        });
     }
 
     // Load to table methods
