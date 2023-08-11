@@ -96,8 +96,8 @@ public class GestionClientes extends JFrame{
 
     public void guardarCliente() {
         String id = txtId.getText();
-        if (id.length() != 0) {
-            String nombre = txtNombre.getText();
+        String nombre = txtNombre.getText();
+        if (id.length() != 0 && nombre.length() != 0) {
             String rtn = txtRtn.getText();
 
             if (t1.buscarCliente(txtId.getText()) == null) {
@@ -122,7 +122,7 @@ public class GestionClientes extends JFrame{
                 JOptionPane.showMessageDialog(null, "El cliente con ese ID ya existe", "Cliente no ingresado", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "La identidad no puede ir vacía", "Cliente no ingresado", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "La identidad/nombre no pueden ir vacíos", "Cliente no ingresado", JOptionPane.ERROR_MESSAGE);
         }
     }
 
