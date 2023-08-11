@@ -96,7 +96,8 @@ public class GestionFactura extends JFrame {
                 try {
                     totalizar();
                 } catch (Exception ex) {
-
+                    txtDescuento.setText("0");
+                    totalizar();
                 }
             }
         });
