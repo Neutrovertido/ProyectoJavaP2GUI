@@ -120,6 +120,17 @@ public class GestionArticulos extends JFrame{
                 }
             }
         });
+        txtPrecio.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                super.focusLost(e);
+                try {
+                    Double.parseDouble(txtPrecio.getText());
+                } catch (Exception ex) {
+                    txtPrecio.setText("");
+                }
+            }
+        });
     }
 
     public void setElements() {
