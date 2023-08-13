@@ -428,19 +428,27 @@ public class GestionFactura extends JFrame {
                         t1.registrarFactura(f);
                         guardarFicheroFactura();
 
-                        for (Articulo a : arti) {
+                        for (int i = 0; i < arti.size(); i++) {
+                            Articulo a = arti.get(i);
+                            int resta = cant.get(i);
+
                             if (a.getClass() == PC.class) {
-
+                                PC pc = t1.buscarPC(a.getCodigo());
+                                int disp = pc.getDisponible();
+                                pc.setDisponible(pc.getDisponible() - resta);
+                                guardarFicheroPC();
                             } else if (a.getClass() == Monitor.class) {
-
+                                Monitor mon = t1.buscarMonitor(a.getCodigo());
+                                int disp = mon.getDisponible();
+                                mon.setDisponible(mon.getDisponible() - resta);
+                                guardarFicheroMon();
                             } else if (a.getClass() == Periferico.class) {
-
+                                Periferico per = t1.buscarPeriferico(a.getCodigo());
+                                int disp = per.getDisponible();
+                                per.setDisponible(per.getDisponible() - resta);
+                                guardarFicheroPer();
                             }
                         }
-
-                        guardarFicheroPC();
-                        guardarFicheroMon();
-                        guardarFicheroPer();
 
                         String msg = "La factura ha sido ingresada correctamente.\n\n" + f.getAtributos();
                         JOptionPane.showMessageDialog(null, msg, "Factura ingresada", JOptionPane.INFORMATION_MESSAGE);
