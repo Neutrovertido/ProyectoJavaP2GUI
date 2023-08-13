@@ -214,6 +214,87 @@ public class GestionFactura extends JFrame {
         }
     }
 
+    // Save to file methods
+    public void guardarFicheroPC() {
+        String name = "DatosPC.dat";
+        try {
+            FileOutputStream ficheroPC = new FileOutputStream(name);
+
+            try (ObjectOutputStream objetoPC = new ObjectOutputStream(ficheroPC)) {
+                for (PC i : t1.getPCs()) {
+                    objetoPC.writeObject(i);
+                }
+                objetoPC.close();
+            }
+        } catch(FileNotFoundException e) {
+            System.out.println("Fichero inexistente.");
+        } catch(IOException e) {
+            System.out.println(e.getMessage());
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void guardarFicheroMon() {
+        String name = "DatosMon.dat";
+        try {
+            FileOutputStream ficheroMon = new FileOutputStream(name);
+
+            try (ObjectOutputStream objetoMon = new ObjectOutputStream(ficheroMon)) {
+                for (Monitor i : t1.getMonitores()) {
+                    objetoMon.writeObject(i);
+                }
+                objetoMon.close();
+            }
+        } catch(FileNotFoundException e) {
+            System.out.println("Fichero inexistente.");
+        } catch(IOException e) {
+            System.out.println(e.getMessage());
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void guardarFicheroPer() {
+        String name = "DatosPer.dat";
+        try {
+            FileOutputStream ficheroPer = new FileOutputStream(name);
+
+            try (ObjectOutputStream objetoPer = new ObjectOutputStream(ficheroPer)) {
+                for (Periferico i : t1.getPerifericos()) {
+                    objetoPer.writeObject(i);
+                }
+                objetoPer.close();
+            }
+        } catch(FileNotFoundException e) {
+            System.out.println("Fichero inexistente.");
+        } catch(IOException e) {
+            System.out.println(e.getMessage());
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void guardarFicheroFactura() {
+        String name = "DatosFact.dat";
+        try {
+            FileOutputStream ficheroF = new FileOutputStream(name);
+
+            try (ObjectOutputStream objetoF = new ObjectOutputStream(ficheroF)) {
+                for (Factura i : t1.getFacturas()) {
+                    objetoF.writeObject(i);
+                }
+                objetoF.close();
+            }
+        } catch(FileNotFoundException e) {
+            System.out.println("Fichero inexistente.");
+        } catch(IOException e) {
+            System.out.println(e.getMessage());
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public void updateCliente() {
         try {
             txaCliente.setText("Cliente:\n" + t1.buscarCliente(txtCliente.getText()).getAtributos());
@@ -263,37 +344,49 @@ public class GestionFactura extends JFrame {
         int cantidad = (int) spnCantidad.getValue();
         if (cantidad > 0) {
             if (t1.buscarPC(cod) != null) {
-                PC pc = t1.buscarPC(cod);
-                tipo = "PC/Laptop/AIO";
-                desc = pc.getMarca() + ", " + pc.getTipoPC() + ", " + pc.getSpecs();
-                precio = pc.getPrecio();
-                if (arti.contains(pc)) {
-                    JOptionPane.showMessageDialog(null, "El artículo especificado ya se encuentra en el carrito", "No añadido", JOptionPane.ERROR_MESSAGE);
+                if (t1.buscarPC(cod).getDisponible() >= cantidad) {
+                    PC pc = t1.buscarPC(cod);
+                    tipo = "PC/Laptop/AIO";
+                    desc = pc.getMarca() + ", " + pc.getTipoPC() + ", " + pc.getSpecs();
+                    precio = pc.getPrecio();
+                    if (arti.contains(pc)) {
+                        JOptionPane.showMessageDialog(null, "El artículo especificado ya se encuentra en el carrito", "No añadido", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        arti.add(t1.buscarPC(cod));
+                        found = true;
+                    }
                 } else {
-                    arti.add(t1.buscarPC(cod));
-                    found = true;
+                    JOptionPane.showMessageDialog(null, "No puede agregar más del artículo de lo que hay disponible", "No añadido", JOptionPane.ERROR_MESSAGE);
                 }
             } else if (t1.buscarMonitor(cod) != null) {
-                Monitor mon = t1.buscarMonitor(cod);
-                tipo = "Monitor";
-                desc = mon.getMarca() + ", " + mon.getTecnologia() + ", " + mon.getResolucion() + ", " + mon.getTamano();
-                precio = mon.getPrecio();
-                if (arti.contains(mon)) {
-                    JOptionPane.showMessageDialog(null, "El artículo especificado ya se encuentra en el carrito", "No añadido", JOptionPane.ERROR_MESSAGE);
+                if (t1.buscarMonitor(cod).getDisponible() >= cantidad) {
+                    Monitor mon = t1.buscarMonitor(cod);
+                    tipo = "Monitor";
+                    desc = mon.getMarca() + ", " + mon.getTecnologia() + ", " + mon.getResolucion() + ", " + mon.getTamano();
+                    precio = mon.getPrecio();
+                    if (arti.contains(mon)) {
+                        JOptionPane.showMessageDialog(null, "El artículo especificado ya se encuentra en el carrito", "No añadido", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        arti.add(t1.buscarMonitor(cod));
+                        found = true;
+                    }
                 } else {
-                    arti.add(t1.buscarMonitor(cod));
-                    found = true;
+                    JOptionPane.showMessageDialog(null, "No puede agregar más del artículo de lo que hay disponible", "No añadido", JOptionPane.ERROR_MESSAGE);
                 }
             } else if (t1.buscarPeriferico(cod) != null) {
-                Periferico per = t1.buscarPeriferico(cod);
-                tipo = "Periférico";
-                desc = per.getMarca() + ", " + per.getTipoF();
-                precio = per.getPrecio();
-                if (arti.contains(per)) {
-                    JOptionPane.showMessageDialog(null, "El artículo especificado ya se encuentra en el carrito", "No añadido", JOptionPane.ERROR_MESSAGE);
+                if (t1.buscarPeriferico(cod).getDisponible() >= cantidad) {
+                    Periferico per = t1.buscarPeriferico(cod);
+                    tipo = "Periférico";
+                    desc = per.getMarca() + ", " + per.getTipoF();
+                    precio = per.getPrecio();
+                    if (arti.contains(per)) {
+                        JOptionPane.showMessageDialog(null, "El artículo especificado ya se encuentra en el carrito", "No añadido", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        arti.add(t1.buscarPeriferico(cod));
+                        found = true;
+                    }
                 } else {
-                    arti.add(t1.buscarPeriferico(cod));
-                    found = true;
+                    JOptionPane.showMessageDialog(null, "No puede agregar más del artículo de lo que hay disponible", "No añadido", JOptionPane.ERROR_MESSAGE);
                 }
             }
 
@@ -334,6 +427,21 @@ public class GestionFactura extends JFrame {
                         Factura f = new Factura(arti, cant, cod, fecha, c, d);
                         t1.registrarFactura(f);
                         guardarFicheroFactura();
+
+                        for (Articulo a : arti) {
+                            if (a.getClass() == PC.class) {
+
+                            } else if (a.getClass() == Monitor.class) {
+
+                            } else if (a.getClass() == Periferico.class) {
+
+                            }
+                        }
+
+                        guardarFicheroPC();
+                        guardarFicheroMon();
+                        guardarFicheroPer();
+
                         String msg = "La factura ha sido ingresada correctamente.\n\n" + f.getAtributos();
                         JOptionPane.showMessageDialog(null, msg, "Factura ingresada", JOptionPane.INFORMATION_MESSAGE);
                         limpiar();
@@ -352,26 +460,6 @@ public class GestionFactura extends JFrame {
             }
         } else {
             JOptionPane.showMessageDialog(null, "Ya existe una factura con ese número", "Factura no ingresada", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    public void guardarFicheroFactura() {
-        String name = "DatosFact.dat";
-        try {
-            FileOutputStream ficheroF = new FileOutputStream(name);
-
-            try (ObjectOutputStream objetoF = new ObjectOutputStream(ficheroF)) {
-                for (Factura i : t1.getFacturas()) {
-                    objetoF.writeObject(i);
-                }
-                objetoF.close();
-            }
-        } catch(FileNotFoundException e) {
-            System.out.println("Fichero inexistente.");
-        } catch(IOException e) {
-            System.out.println(e.getMessage());
-        } catch(Exception e) {
-            System.out.println(e.getMessage());
         }
     }
 
