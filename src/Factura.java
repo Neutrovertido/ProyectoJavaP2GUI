@@ -64,7 +64,7 @@ public class Factura implements java.io.Serializable {
     public static String fechaActual() {
         int dia, mes, anho;
         dia = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-        mes = Calendar.getInstance().get(Calendar.MONTH);
+        mes = Calendar.getInstance().get(Calendar.MONTH) + 1;
         anho = Calendar.getInstance().get(Calendar.YEAR);
         return dia + "/" + mes +  "/" + anho;
     }
